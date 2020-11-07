@@ -29,7 +29,7 @@
                                 <tr v-for="(item,index) in cakes" :key="index" class="text-center">
                                     <td>{{item.id}}</td>
                                     <td class="w-50">{{item.name}}</td>
-                                    <td class="w-25">{{item.price}}</td>
+                                    <td class="w-25">$ {{item.price}}</td>
                                     <td class="m-0 p-0">
                                         <div class="col-12 m-0">
                                             <button class="btn btn-info m-1 col-xl-3 col-xs-12" @click="setDetailsView(item)"><i class="el-icon-view"></i></button>

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('content')
 <section id="home">
@@ -43,7 +43,7 @@
             <div class="row"> <!-- row -->
                 
                 <div class="col-md-6 text-right">  <!-- Left Content Col 6 -->
-                    <img src="{{asset(assets/img/design.jpg)}}" class="intro-logo img-responsive" alt="free-template">
+                    <img src="assets/img/design.jpg" class="intro-logo img-responsive" alt="free-template">
                 </div> <!-- End Left Content Col 6 -->
 
                 <div class="col-md-6"> <!-- Right Content Col 6 -->

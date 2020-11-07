@@ -1,7 +1,7 @@
 <template>
     <div class="p-3 text-left">
         <div id="" class="">
-                <h1>Detallaes Pastel</h1>
+                <h1>Detalles Pastel</h1>
                 <form @submit.prevent="">
                     <div class="col-sm-4 col-lg-2 text-left m-0 p-0">
                         <button class="btn btn-info form-button m-3" @click="showList()"><i class="el-icon-s-fold"></i></button>
@@ -9,9 +9,9 @@
                     </div>
                     <div class="col-12">
                         <dir class="row justify-content-left m-0 p-0">
-                            <div class="col-xs-12 col-sm-6 col-xl-4 m-0 p-0 text-left">
+                            <div class="col-xs-12 col-sm-8 col-xl-6 m-0 p-0 text-left">
                                 <div
-                                    class="mw-50 col-md-10 col-lg-5 offset-md-2 rounded uploader m-auto"
+                                    class="mw-50 col-md-12 col-lg-12 offset-md-2 rounded m-auto"
                                     @dragenter="OnDragEnter"
                                     @dragleave="OnDragLeave"
                                     @dragover.prevent
@@ -52,7 +52,7 @@
                                 <br>
                                 <h3>Precio</h3>
                                 <div class="w-100">
-                                       <input type="number" step="0.1" placeholder="Precio" class="form-control text-center" v-model="cake.price" disabled>
+                                       <input type="number" step="0.1" placeholder="Precio" class="form-control text-left" v-model="cake.price" disabled>
                                 </div>
                                 <div class="row col-12">
                                     <div class="col-12 text-center">

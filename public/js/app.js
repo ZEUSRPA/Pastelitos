@@ -3641,6 +3641,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     cake: {}
@@ -3650,22 +3687,22 @@ __webpack_require__.r(__webpack_exports__);
       allcakes: [],
       isDragging: false,
       array: [],
-      selectedView: 'addView',
+      selectedView: "addView",
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
     };
   },
   created: function created() {
     var _this = this;
 
-    axios.get('/pasteles').then(function (res) {
+    axios.get("/pasteles").then(function (res) {
       _this.allcakes = res.data;
 
       if (_this.cake.id === 0) {
-        _this.selectedView = 'addView';
+        _this.selectedView = "addView";
         document.getElementById("deleteImg").style.visibility = "hidden";
         document.getElementById("pic").style.visibility = "hidden";
       } else {
-        _this.selectedView = 'updateView';
+        _this.selectedView = "updateView";
         document.getElementById("deleteImg").style.visibility = "visible";
         document.getElementById("pic").style.visibility == "visible";
         document.getElementById("pic").src = "../../../../storage/" + _this.cake.image;
@@ -3705,16 +3742,16 @@ __webpack_require__.r(__webpack_exports__);
 
       this.cake.name = this.cake.name.trim();
 
-      if (this.cake.name === '' || document.getElementById("deleteImg").style.visibility != "visible" || this.cake.price < 0 || this.cake.description === '') {
-        this.showErrorNotification('Campos incompletos', 'Debe llenar todos los campos');
+      if (this.cake.name === "" || document.getElementById("deleteImg").style.visibility != "visible" || this.cake.price < 0 || this.cake.description === "") {
+        this.showErrorNotification("Campos incompletos", "Debe llenar todos los campos");
         return;
       }
 
       var params = this.setParams();
-      axios.post('/pasteles', params).then(function (res) {
+      axios.post("/pasteles", params).then(function (res) {
         _this2.allcakes.push(res.data);
 
-        _this2.showSuccessNotification('Pastel agregado', "Pastel agregado exitosamente.");
+        _this2.showSuccessNotification("Pastel agregado", "Pastel agregado exitosamente.");
 
         _this2.resetFields();
 
@@ -3725,14 +3762,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$notify({
         title: title,
         message: text,
-        type: 'success'
+        type: "success"
       });
     },
     showErrorNotification: function showErrorNotification(title, text) {
       this.$notify({
         title: title,
         message: text,
-        type: 'error'
+        type: "error"
       });
     },
     updateProcedure: function updateProcedure() {
@@ -3740,21 +3777,21 @@ __webpack_require__.r(__webpack_exports__);
 
       this.cake.name = this.cake.name.trim();
 
-      if (this.cake.name === '' || document.getElementById("deleteImg").style.visibility != "visible" || this.cake.price < 0 || this.cake.description === '') {
-        this.showErrorNotification('Campos incompletos', 'Debe llenar todos los campos y el precio debe ser mayor o igual a 0');
+      if (this.cake.name === "" || document.getElementById("deleteImg").style.visibility != "visible" || this.cake.price < 0 || this.cake.description === "") {
+        this.showErrorNotification("Campos incompletos", "Debe llenar todos los campos y el precio debe ser mayor o igual a 0");
         return;
       }
 
       var params = this.setParams();
       params.append("edit", this.cake.id);
-      axios.post('/pasteles/', params).then(function (res) {
+      axios.post("/pasteles/", params).then(function (res) {
         var index = _this3.allcakes.findIndex(function (search) {
           return search.id === res.data.id;
         });
 
         _this3.allcakes[index] = res.data;
 
-        _this3.showSuccessNotification('Pastel editado', 'Se ha editado el pastel exitosamente');
+        _this3.showSuccessNotification("Pastel editado", "Se ha editado el pastel exitosamente");
 
         window.location.href = "/pasteles/";
       });
@@ -3763,10 +3800,10 @@ __webpack_require__.r(__webpack_exports__);
       window.location.href = "/pasteles/";
     },
     resetFields: function resetFields() {
-      this.cake.name = '';
-      this.cake.description = '';
+      this.cake.name = "";
+      this.cake.description = "";
       this.cake.price = 0.0;
-      this.cake.image = '';
+      this.cake.image = "";
     },
     cancelUpdate: function cancelUpdate() {
       window.history.go(-1);
@@ -100813,7 +100850,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "p-3 text-left" }, [
+  return _c("div", { staticClass: "p-3 text-center justify-content-center" }, [
     _c("div", { attrs: { id: "" } }, [
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "col-xs-12 col-sm-6 col-xl-4 text-center" }, [
@@ -100860,14 +100897,14 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "col-xs-12 col-sm-6 col-xl-4 m-0 p-0 text-left"
+                        "col-xs-12 col-sm-8 col-xl-6 m-0 p-0 text-left"
                     },
                     [
                       _c(
                         "div",
                         {
                           staticClass:
-                            "mw-50 col-md-10 col-lg-5 offset-md-2 rounded uploader m-auto",
+                            "mw-50 col-md-12 col-lg-12 offset-md-2 rounded uploader m-auto",
                           class: { dragging: _vm.isDragging },
                           on: {
                             dragenter: _vm.OnDragEnter,
@@ -100941,23 +100978,37 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "row text-center" }, [
-                            _c("div", { staticClass: "col-md-12 col-lg-12" }, [
+                          _c(
+                            "div",
+                            { staticClass: "row text-center col-12 m-0 p-2" },
+                            [
                               _c(
-                                "button",
+                                "div",
                                 {
-                                  staticClass: "btn btn-danger btn-block",
-                                  attrs: { type: "button", id: "deleteImg" },
-                                  on: { click: this.deleteImg }
+                                  staticClass:
+                                    "col-sm-12 col-md-8 col-lg-6 m-auto text-center"
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                                    Eliminar\n                                    "
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-block",
+                                      attrs: {
+                                        type: "button",
+                                        id: "deleteImg"
+                                      },
+                                      on: { click: this.deleteImg }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      Eliminar\n                    "
+                                      )
+                                    ]
                                   )
                                 ]
                               )
-                            ])
-                          ])
+                            ]
+                          )
                         ]
                       ),
                       _vm._v(" "),
@@ -100974,7 +101025,11 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control mb-2 text-left",
-                          attrs: { type: "text", placeholder: "Nombre" },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Nombre",
+                            required: ""
+                          },
                           domProps: { value: _vm.cake.name },
                           on: {
                             input: function($event) {
@@ -101002,7 +101057,11 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control mb-2 text-left",
-                          attrs: { type: "text", placeholder: "Descripcion" },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Descripcion",
+                            required: ""
+                          },
                           domProps: { value: _vm.cake.description },
                           on: {
                             input: function($event) {
@@ -101033,10 +101092,11 @@ var render = function() {
                               expression: "cake.price"
                             }
                           ],
-                          staticClass: "form-control text-center",
+                          staticClass: "form-control text-left",
                           attrs: {
                             type: "number",
                             step: "0.1",
+                            min: "0",
                             placeholder: "Precio"
                           },
                           domProps: { value: _vm.cake.price },
@@ -101070,7 +101130,7 @@ var render = function() {
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "el-icon-finished w-100 "
+                                      staticClass: "el-icon-finished w-100"
                                     })
                                   ]
                                 )
@@ -101096,7 +101156,7 @@ var render = function() {
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "el-icon-finished w-100 "
+                                      staticClass: "el-icon-finished w-100"
                                     })
                                   ]
                                 )
@@ -101146,7 +101206,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "p-3 text-left" }, [
     _c("div", { attrs: { id: "" } }, [
-      _c("h1", [_vm._v("Detallaes Pastel")]),
+      _c("h1", [_vm._v("Detalles Pastel")]),
       _vm._v(" "),
       _c(
         "form",
@@ -101183,14 +101243,14 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "col-xs-12 col-sm-6 col-xl-4 m-0 p-0 text-left"
+                    staticClass: "col-xs-12 col-sm-8 col-xl-6 m-0 p-0 text-left"
                   },
                   [
                     _c(
                       "div",
                       {
                         staticClass:
-                          "mw-50 col-md-10 col-lg-5 offset-md-2 rounded uploader m-auto",
+                          "mw-50 col-md-12 col-lg-12 offset-md-2 rounded m-auto",
                         class: { dragging: _vm.isDragging },
                         on: {
                           dragenter: _vm.OnDragEnter,
@@ -101329,7 +101389,7 @@ var render = function() {
                             expression: "cake.price"
                           }
                         ],
-                        staticClass: "form-control text-center",
+                        staticClass: "form-control text-left",
                         attrs: {
                           type: "number",
                           step: "0.1",
@@ -101542,7 +101602,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "w-25" }, [
-                          _vm._v(_vm._s(item.price))
+                          _vm._v("$ " + _vm._s(item.price))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "m-0 p-0" }, [
