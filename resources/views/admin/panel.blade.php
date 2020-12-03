@@ -7,6 +7,6 @@
     <img src="/images/cakeAdmin.jpg" alt="" >
     <br>
     <br>
-    <a href="/pasteles/"><button class="btn btn-primary">Gestionar Pasteles</button></a>
+    <a href="/admin/pasteles/"><button class="btn btn-primary">Gestionar Pasteles</button></a>
 </div>
 @endsection

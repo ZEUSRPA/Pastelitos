@@ -13,14 +13,18 @@ class CreateCakesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cakes', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->float('price');
-            $table->string('image');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('cakes')){
+            Schema::create('cakes', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('description');
+                $table->float('price');
+                $table->string('image');
+                $table->integer('stock')->unsigned;
+                $table->timestamps();
+            });
+            
+        }
     }
 
     /**

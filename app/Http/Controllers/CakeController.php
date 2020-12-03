@@ -37,10 +37,10 @@ class CakeController extends Controller
     public function create()
     {
         $cake = new Cake();
-        $cake->id=0;
+        $cake->id=\DB::getPdo()->lastInsertId()+1;
         $cake->name = '';
         $cake->description = '';
-        $cake->price = 0.0;
+        $cake->price = -1.0;
         $cake->image = '';
         $data = ['cake'=>$cake];
         return view('cakes/createEdit',$data);
@@ -56,14 +56,11 @@ class CakeController extends Controller
     {
         if($request->edit!=null){
             $cake = Cake::findorFail($request->edit);
-            $cake->name = 'fail';
-            if($request->image != ''){
-                $cake->name = 'jajajaj';
-            }
             if ($request->hasFile('image')){
                 $cake->name = $request->name;
                 $cake->description = $request->description;
                 $cake->price = $request->price;
+                $cake->stock = $request->stock;
                 Storage:: delete ('public/'.$cake->image);
                 $path = $request->image->store('public');
                 $ur = (string)$request->image->hashName();
@@ -80,6 +77,7 @@ class CakeController extends Controller
         $cake->name = $request->name;
         $cake->price = $request->price;
         $cake->description = $request->description;
+        $cake->stock = $request->stock;
         if ($request->image != '') {
             if ($request->hasFile('image')) {
 

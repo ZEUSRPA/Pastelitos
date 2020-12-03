@@ -2,139 +2,181 @@
   <div class="p-3 text-center justify-content-center">
     <div id="" class="">
       <div class="col-12">
-        <div class="col-xs-12 col-sm-6 col-xl-4 text-center">
-          <h1 v-if="selectedView === 'addView'">Agregar Pastel</h1>
-          <h1 v-else>Editar Pastel</h1>
-          <br />
+        <div class="col-xs-12 col-sm-6 col-xl-4 text-left">
+          <h1>Pasteles</h1>
         </div>
-        <form @submit.prevent="">
-          <div class="col-sm-4 col-lg-2 text-left m-0 p-0">
-            <button class="btn btn-info form-button m-3" @click="showList()">
-              <i class="el-icon-s-fold"></i>
-            </button>
-            <br />
-          </div>
-          <div class="col-12">
-            <dir class="row justify-content-left m-0 p-0">
-              <div class="col-xs-12 col-sm-8 col-xl-6 m-0 p-0 text-left">
-                <div
-                  class="mw-50 col-md-12 col-lg-12 offset-md-2 rounded uploader m-auto"
-                  @dragenter="OnDragEnter"
-                  @dragleave="OnDragLeave"
-                  @dragover.prevent
-                  @drop="onDrop"
-                  :class="{ dragging: isDragging }"
-                >
-                  <form
-                    class="row text-center"
-                    id="camera"
-                    action="/asignar/0"
-                    target="_blank"
-                    method="post"
-                  >
-                    <input type="hidden" name="option" value="picture" />
-                    <input type="hidden" name="_token" :value="csrf" />
-                  </form>
-                  <div class="row text-center">
-                    <div class="col-md-12 col-lg-12">
-                      <input
-                        type="file"
-                        id="file"
-                        enctype="multipart/form-data"
-                        class="btn btn-info btn-block"
-                        @change="onInputChange"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-12 col-lg-12 text-center">
-                    <h5>Suelta tu imagen aquí</h5>
-                  </div>
-                  <div class="col-md-12 col-lg-12 text-center">
-                    <img
-                      enctype="multipart/form-data"
-                      class="img-rounded"
-                      id="pic"
-                      height="200px"
-                    />
-                  </div>
-                  <div class="row text-center col-12 m-0 p-2">
-                    <div class="col-sm-12 col-md-8 col-lg-6 m-auto text-center">
-                      <button
-                        type="button"
-                        id="deleteImg"
-                        @click="this.deleteImg"
-                        class="btn btn-danger btn-block"
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  </div>
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header text-center">
+              <h4 v-if="selectedView === 'addView'">Agregar Pastel</h4>
+              <h4 v-else>Editar Pastel</h4>
+            </div>
+            <div class="card-body">
+              <form @submit.prevent="">
+                <div class="col-sm-4 col-lg-2 text-left m-0 p-0">
+                  <button class="btn btn-info form-button m-3" @click="showList()">
+                    <i class="el-icon-s-fold"></i>
+                  </button>
+                  <br />
                 </div>
-                <h3>Nombre</h3>
-                <div class="w-100">
-                  <input
-                    type="text"
-                    placeholder="Nombre"
-                    class="form-control mb-2 text-left"
-                    v-model="cake.name"
-                    required
-                  />
-                </div>
-                <br />
-                <h3>Descripcion</h3>
-                <div class="w-100">
-                  <input
-                    type="text"
-                    placeholder="Descripcion"
-                    class="form-control mb-2 text-left"
-                    v-model="cake.description"
-                    required
-                  />
-                </div>
-                <br />
-                <h3>Precio</h3>
-                <div class="w-100">
-                  <input
-                    type="number"
-                    step="0.1"
-                    min="0"
-                    placeholder="Precio"
-                    class="form-control text-left"
-                    v-model="cake.price"
-                  />
-                </div>
+                <div class="col-12">
+                  <dir class=" justify-content-center m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-left justify-content-center">
+                      <div class="col-xs-12 col-md-6 text-center imagen">
+                        <div
+                          class="mw-50 col-md-12 col-lg-12 offset-md-2 rounded uploader m-auto"
+                          @dragenter="OnDragEnter"
+                          @dragleave="OnDragLeave"
+                          @dragover.prevent
+                          @drop="onDrop"
+                          :class="{ dragging: isDragging }"
+                        >
+                          <form
+                            class="row text-center"
+                            id="camera"
+                            action="/asignar/0"
+                            target="_blank"
+                            method="post"
+                          >
+                            <input type="hidden" name="option" value="picture" />
+                            <input type="hidden" name="_token" :value="csrf" />
+                          </form>
+                          <div class="row text-center">
+                            <div class="col-md-12 col-lg-12">
+                              <input
+                                type="file"
+                                id="file"
+                                enctype="multipart/form-data"
+                                class="btn btn-info btn-block"
+                                @change="onInputChange"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-12 text-center">
+                            <h5>Suelta tu imagen aquí</h5>
+                          </div>
+                          <div class="col-md-12 col-lg-12 text-center">
+                            <img
+                              enctype="multipart/form-data"
+                              class="img-rounded"
+                              id="pic"
+                              height="200px"
+                            />
+                          </div>
+                          <div class="row text-center col-12 m-0 p-2">
+                            <div class="col-sm-12 col-md-8 col-lg-6 m-auto text-center">
+                              <button
+                                type="button"
+                                id="deleteImg"
+                                @click="this.deleteImg"
+                                class="btn btn-danger btn-block"
+                              >
+                                Eliminar
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-5">
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>ID</h4>
+                          <div class="w-100">
+                            <input
+                              type="text"
+                              placeholder="ID"
+                              class="form-control mb-2 text-left"
+                              v-model="cake.id"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Nombre</h4>
+                          <div class="w-100">
+                            <input
+                              type="text"
+                              placeholder="Nombre"
+                              class="form-control mb-2 text-left"
+                              v-model="cake.name"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Descripcion</h4>
+                          <div class="w-100">
+                            <input
+                              type="text"
+                              placeholder="Descripcion"
+                              class="form-control mb-2 text-left"
+                              v-model="cake.description"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Precio</h4>
+                          <div class="w-100">
+                            <input
+                              type="number"
+                              step="0.5"
+                              min="0"
+                              placeholder="Precio"
+                              class="form-control text-left"
+                              v-model="cake.price"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Existencia</h4>
+                          <div class="w-100">
+                            <input
+                              type="number"
+                              min="0"
+                              placeholder="Existencia"
+                              class="form-control text-left"
+                              v-model="cake.stock"
+                            />
+                          </div>
+                        </div>
 
-                <div class="row col-12">
-                  <div
-                    class="col-sm-12 text-center"
-                    v-if="selectedView === 'addView'"
-                  >
-                    <button
-                      class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
-                      @click="addProcedure()"
-                    >
-                      <i class="el-icon-finished w-100"></i>
-                    </button>
-                  </div>
-                  <div
-                    class="col-sm-12 text-center"
-                    v-if="selectedView === 'updateView'"
-                  >
-                    <button
-                      class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
-                      @click="updateProcedure()"
-                    >
-                      <i class="el-icon-finished w-100"></i>
-                    </button>
-                  </div>
+                        <div class="row col-12">
+                          <div
+                            class="col-sm-12 text-center"
+                            v-if="selectedView === 'addView'"
+                          >
+                            <button
+                              class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
+                              @click="addProcedure()"
+                            >
+                              <i class="el-icon-finished w-100"></i>
+                            </button>
+                          </div>
+                          <div
+                            class="col-sm-12 text-center"
+                            v-if="selectedView === 'updateView'"
+                          >
+                            <button
+                              class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
+                              @click="updateProcedure()"
+                            >
+                              <i class="el-icon-finished w-100"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </dir>
+                  <br />
+                  <br />
+                  <br />
                 </div>
-              </div>
-            </dir>
-            <br />
-            <br />
-            <br />
+              </form>
+
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -157,9 +199,9 @@ export default {
     };
   },
   created() {
-    axios.get("/pasteles").then((res) => {
+    axios.get("/admin/pasteles").then((res) => {
       this.allcakes = res.data;
-      if (this.cake.id === 0) {
+      if (this.cake.price === -1.0) {
         this.selectedView = "addView";
         document.getElementById("deleteImg").style.visibility = "hidden";
         document.getElementById("pic").style.visibility = "hidden";
@@ -172,6 +214,9 @@ export default {
           "../../../../storage/" + this.cake.image;
       }
     });
+    if(this.cake.price === -1.0){
+      this.cake.price===0;
+    }
   },
   methods: {
     setParams() {
@@ -197,6 +242,7 @@ export default {
         params.append("description", this.cake.description);
         params.append("price", this.cake.price);
         params.append("image", file2);
+        params.append("stock",this.cake.stock);
         return params;
       }
     },
@@ -217,14 +263,14 @@ export default {
       }
       var params = this.setParams();
 
-      axios.post("/pasteles", params).then((res) => {
+      axios.post("/admin/pasteles", params).then((res) => {
         this.allcakes.push(res.data);
         this.showSuccessNotification(
           "Pastel agregado",
           "Pastel agregado exitosamente."
         );
         this.resetFields();
-        window.location.href = "/pasteles/";
+        window.location.href = "/admin/pasteles/";
       });
     },
     showSuccessNotification(title, text) {
@@ -257,7 +303,7 @@ export default {
       }
       var params = this.setParams();
       params.append("edit", this.cake.id);
-      axios.post("/pasteles/", params).then((res) => {
+      axios.post("/admin/pasteles/", params).then((res) => {
         const index = this.allcakes.findIndex(
           (search) => search.id === res.data.id
         );
@@ -266,11 +312,11 @@ export default {
           "Pastel editado",
           "Se ha editado el pastel exitosamente"
         );
-        window.location.href = "/pasteles/";
+        window.location.href = "/admin/pasteles/";
       });
     },
     showList() {
-      window.location.href = "/pasteles/";
+      window.location.href = "/admin/pasteles/";
     },
     resetFields() {
       this.cake.name = "";

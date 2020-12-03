@@ -79,7 +79,7 @@
             }
         },
         created:function(){
-            axios.get('/pasteles').then(res=>{
+            axios.get('/admin/pasteles').then(res=>{
                 this.allcakes=res.data;
                 console.log(this.allcakes);
                 this.selectedcakes=this.allcakes;
@@ -168,15 +168,15 @@
                 })
             },
             setAddView(){
-                window.location.href="/pasteles/agregar";
+                window.location.href="/admin/pasteles/agregar";
             },
             setDetailsView(item){
-                window.location.href="/pasteles/"+item.id;
+                window.location.href="/admin/pasteles/"+item.id;
 
             },
             setEditView(item){
                 this.editing=true;
-                window.location.href="/pasteles/editar/"+item.id;
+                window.location.href="/admin/pasteles/editar/"+item.id;
             },
             sortTable(value){
                 if(this.order === 1){

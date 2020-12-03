@@ -12,6 +12,7 @@ Una vez clonado el repositorio es necesario ejecutar los siguientes comandos:
 
 - composer install
 - npm install
+- php artisan storage:link
 
 Asimismo se requiere crear la base de datos y realizar las migraciones mediante el comando:
 

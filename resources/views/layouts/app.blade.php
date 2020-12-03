@@ -41,7 +41,7 @@
                         <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>-->
                         @guest
                         @else
-                            <li class="nav-item"><a href="/administrar/" class="nav-link">Administrar</a></li> 
+                            <li class="nav-item"><a href="/admin/clientes/" class="nav-link">Administrar</a></li> 
                         @endguest
                         
                     </ul>
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </nav>
-
+        
         <main class="py-4">
             @yield('content')
         </main>
