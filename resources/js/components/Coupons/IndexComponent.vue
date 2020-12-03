@@ -106,11 +106,11 @@
                 }else{
                     this.selectedcoupons=[];
                     for(let l of this.allcoupons){
-                        if(l.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
+                        if(l.id.toString().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedcoupons.push(l);
-                        }else if(l.price.toString().indexOf(this.search.toLowerCase().trim())>-1){
+                        }else if(l.percentage.toString().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedcoupons.push(l);
-                        }else if(l.id.toString().indexOf(this.search.trim())>-1){
+                        }else if(l.expiration.toString().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedcoupons.push(l);
                         }
                     }
@@ -137,7 +137,7 @@
                     cancelButtonText: 'Cancelar',
                     type:'warning'
                 }).then(()=>{
-                    axios.delete(`/cupones/${item.id}`).then(res=>{
+                    axios.delete(`/admin/cupones/${item.id}`).then(res=>{
                         if(res.data['information'] === 'good'){
                             this.allcoupons.splice(this.allcoupons.findIndex(a=>a.id === item.id),1);
                             this.searching(2);

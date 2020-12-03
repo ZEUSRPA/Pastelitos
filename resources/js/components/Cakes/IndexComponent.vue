@@ -134,7 +134,7 @@
                     cancelButtonText: 'Cancelar',
                     type:'warning'
                 }).then(()=>{
-                    axios.delete(`/pasteles/${item.id}`).then(res=>{
+                    axios.delete(`/admin/pasteles/${item.id}`).then(res=>{
                         if(res.data['information'] === 'good'){
                             this.allcakes.splice(this.allcakes.findIndex(a=>a.id === item.id),1);
                             this.searching(2);

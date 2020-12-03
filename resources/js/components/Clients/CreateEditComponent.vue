@@ -3,7 +3,7 @@
     <div id="" class="">
       <div class="col-12">
         <div class="col-xs-12 col-sm-6 col-xl-4 text-left">
-          <h1 >Clientes</h1>
+          <h1>Clientes</h1>
           <br />
         </div>
         <div class="col-12">
@@ -13,9 +13,13 @@
               <h4 v-else>Editar Cliente</h4>
             </div>
             <div class="card-body">
-              <form @submit.prevent="">
+              <form v-on:submit.prevent="updateProcedure()">
                 <div class="col-sm-4 col-lg-2 text-left m-0 p-0">
-                  <button class="btn btn-info form-button m-3" @click="showList()">
+                  <button
+                    class="btn btn-info form-button m-3"
+                    type="button"
+                    @click="showList()"
+                  >
                     <i class="el-icon-s-fold"></i>
                   </button>
                 </div>
@@ -66,7 +70,6 @@
                             placeholder="Contraseña"
                             class="form-control mb-2 text-left"
                             v-model="client.password"
-                            
                           />
                         </div>
                       </div>
@@ -78,7 +81,6 @@
                             placeholder="Confirmar Contraseña"
                             class="form-control mb-2 text-left"
                             v-model="client.confirm"
-                            
                           />
                         </div>
                       </div>
@@ -112,7 +114,7 @@
                         >
                           <button
                             class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
-                            @click="updateProcedure()"
+                            type="submit"
                           >
                             <i class="el-icon-finished w-100"></i>
                           </button>
@@ -125,7 +127,6 @@
                   <br />
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -163,47 +164,54 @@ export default {
   methods: {
     setParams() {
       var params = new FormData();
-      params.append("name",this.client.name);
-      params.append("email",this.client.email);
-      params.append("phone",this.client.phone);
-      if(this.client.password != null){
-        params.append("password",this.client.password);
-      }else{
-        params.append("password","");
+      params.append("name", this.client.name);
+      params.append("email", this.client.email);
+      params.append("phone", this.client.phone);
+      if (this.client.password != null) {
+        params.append("password", this.client.password);
+      } else {
+        params.append("password", "");
       }
       return params;
     },
     addProcedure() {
       this.client.name = this.client.name.trim();
 
-      if (this.client.name === "" ||this.client.email === "") {
+      if (this.client.name === "" || this.client.email === "") {
+        
         this.showErrorNotification(
           "Campos incompletos",
           "Debe llenar todos los campos"
         );
         return;
       }
-      if(this.client.password.length < 8 ){
+      if (this.client.password.length < 8) {
         this.showErrorNotification(
           "La clave es debil",
           "La clave debe contar con al menos 8 caracteres"
         );
         return;
       }
-      if(this.client.password != this.client.confirm){
-        this.showErrorNotification(
-          "Las claves no coinciden",""
-        );
+      if (this.client.password != this.client.confirm) {
+        this.showErrorNotification("Las claves no coinciden", "");
         return;
       }
       var params = this.setParams();
-
-      axios.post("/admin/clientes", params).then((res) => {
-        
+      console.log(this.client);
+      axios.post("/admin/clientes", this.client).then((res) => {
+        console.log(res.data);
+         if(res.data==0){
+          this.showErrorNotification(
+            "Clientes",
+            "El correo ya ha sido utilizado"
+          );
+          return;
+        }
         this.showSuccessNotification(
           "Cliente agregado",
           "Cliente agregado exitosamente."
         );
+        this.client.id += 1;
         window.location.href = "/admin/clientes/";
       });
     },
@@ -224,32 +232,43 @@ export default {
     updateProcedure() {
       this.client.name = this.client.name.trim();
 
-      if (this.client.name === "" ||this.client.email === "") {
+      if (this.client.name === "" || this.client.email === "") {
         this.showErrorNotification(
           "Campos incompletos",
           "Debe llenar todos los campos"
         );
         return;
       }
-      if(this.client.password!=null && this.client.password.length < 8 ){
+      if (this.client.password != null && this.client.password.length < 8) {
         this.showErrorNotification(
           "La clave es debil",
           "La clave debe contar con al menos 8 caracteres"
         );
         return;
       }
-      if(this.client.password != this.client.confirm){
-        this.showErrorNotification(
-          "Las claves no coinciden",""
-        );
+      if (this.client.password != this.client.confirm) {
+        this.showErrorNotification("Las claves no coinciden", "");
         return;
       }
       var params = this.setParams();
-
-      axios.put(`/admin/clientes/${this.client.id}`,params).then(res=>{
-          this.showSuccessNotification('Horario editado','Se ha editado el horario exitosamente');
+      axios
+        .put(`/admin/clientes/${this.client.id}`, this.client)
+        .then((res) => {
+          console.log(res.data);
+          if(res.data==0){
+          this.showErrorNotification(
+            "Clientes",
+            "El correo ya ha sido utilizado"
+          );
+          return;
+        }
+          // console.log(res.data);
+          this.showSuccessNotification(
+            "Cliente editado",
+            "Se ha editado el horario exitosamente"
+          );
           this.showList();
-      });
+        });
     },
     showList() {
       window.location.href = "/admin/clientes/";
@@ -262,7 +281,7 @@ export default {
     },
     cancelUpdate() {
       window.history.go(-1);
-    }
+    },
   },
 };
 </script>

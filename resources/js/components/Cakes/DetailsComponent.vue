@@ -31,7 +31,7 @@
                               enctype="multipart/form-data"
                               class="img-rounded"
                               id="pic"
-                              height="200px"
+                              width="200px"
                             />
                           </div>
                         </div>

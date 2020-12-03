@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="u8">
@@ -26,34 +25,8 @@
     
     <!-- Favicons
     ================================================== -->
-    <link rel="shortcut icon" href="" type="image/x-icon"> 
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css"  href="assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome/css/font-awesome.css">
-
-    <!-- Nivo Lightbox
-    ================================================== -->
-    <link rel="stylesheet" type="text/css" href="assets/css/nivo-lightbox.css" >
-    <link rel="stylesheet" href="assets/css/nivo_lightbox_themes/default/default.css">
-    
-
-    <!-- Slider
-    ================================================== -->
-    <link href="assets/css/owl.carousel.css" rel="stylesheet" media="screen">
-    <link href="assets/css/owl.theme.css" rel="stylesheet" media="screen">
-
-    <!-- Stylesheet
-    ================================================== -->
-    <link rel="stylesheet" type="text/css"  href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
-
-    <!-- Google Fonts
-    ================================================== -->
-    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-
-    <script type="text/javascript" src="assets/js/modernizr.custom.js"></script>
-
+ 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -66,6 +39,7 @@
     <div id="app">
         <nav id="menu" class="navbar navbar-default navbar-fixed-top">
             <div class="container">
+            
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">

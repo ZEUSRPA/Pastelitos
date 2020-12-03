@@ -17,12 +17,38 @@
 {{--    <!-- Fonts -->--}}
 {{--    <link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
 {{--    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">--}}
+{{--<link rel="shortcut icon" href="" type="image/x-icon"> --}}
+
+<!-- Bootstrap -->
+{{--<link rel="stylesheet" type="text/css"  href="assets/css/bootstrap.css">--}}
+{{--<link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome/css/font-awesome.css">--}}
+
+<!-- Nivo Lightbox
+================================================== -->
+{{--<link rel="stylesheet" type="text/css" href="assets/css/nivo-lightbox.css" >--}}
+{{--<link rel="stylesheet" href="assets/css/nivo_lightbox_themes/default/default.css">--}}
+
+
+<!-- Slider
+================================================== -->
+{{--<link href="assets/css/owl.carousel.css" rel="stylesheet" media="screen">--}}
+{{--<link href="assets/css/owl.theme.css" rel="stylesheet" media="screen">--}}
+
+<!-- Stylesheet
+================================================== -->
+{{--<link rel="stylesheet" type="text/css"  href="assets/css/style.css">--}}
+{{--<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">--}}
+
+<!-- Google Fonts
+================================================== -->
+{{--<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>--}}
+{{--<script type="text/javascript" src="assets/js/modernizr.custom.js"></script>--}}
 
 {{--    <!-- Styles -->--}}
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 {{--    <link href="{{ asset('css/master.css') }}" rel="stylesheet">--}}
 {{--    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">--}}
-{{--</head>--}}
+</head>
 {{--<body>--}}
 {{--<div id="app">--}}
 {{--    <el-container>--}}
@@ -107,7 +133,138 @@
         @endif
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <topbar-menu-component></topbar-menu-component>
+            <nav class="navbar navbar-light navbar-expand bg-pasteleria shadow mb-4 topbar static-top">
+        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+            <!-- <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                    <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                </div>
+            </form> -->
+            <ul class="nav navbar-nav flex-nowrap ml-auto">
+                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                        <form class="form-inline mr-auto navbar-search w-100">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="badge badge-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in">
+                            <h6 class="dropdown-header">alerts center</h6>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="mr-3">
+                                    <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                </div>
+                                <div><span class="small text-gray-500">December 12, 2019</span>
+                                    <p>A new monthly report is ready to download!</p>
+                                </div>
+                            </a>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="mr-3">
+                                    <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
+                                </div>
+                                <div><span class="small text-gray-500">December 7, 2019</span>
+                                    <p>$290.29 has been deposited into your account!</p>
+                                </div>
+                            </a>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="mr-3">
+                                    <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
+                                </div>
+                                <div><span class="small text-gray-500">December 2, 2019</span>
+                                    <p>Spending Alert: We've noticed unusually high spending for your account.</p>
+                                </div>
+                            </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All Alerts</a></div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-envelope fa-fw"></i><span class="badge badge-danger badge-counter">7</span></a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in">
+                            <h6 class="dropdown-header">alerts center</h6>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/images/avatars/avatar4.jpeg">
+                                    <div class="bg-success status-indicator"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
+                                    <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                                </div>
+                            </a>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/images/avatars/avatar2.jpeg">
+                                    <div class="status-indicator"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
+                                    <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                </div>
+                            </a>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/images/avatars/avatar3.jpeg">
+                                    <div class="bg-warning status-indicator"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
+                                    <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                </div>
+                            </a>
+                            <a class="d-flex align-items-center dropdown-item" href="#">
+                                <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/images/avatars/avatar5.jpeg">
+                                    <div class="bg-success status-indicator"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
+                                    <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                </div>
+                            </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All Alerts</a></div>
+                    </div>
+                    <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+                </li>
+                <li>
+                @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @endif
+                        
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                                
+                            </a>
+                            
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                
+    
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                        <a  class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                        </li>
+                    @endguest
+
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
                 <div class="container-fluid">
                     @yield('content')
                 </div>

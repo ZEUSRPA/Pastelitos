@@ -106,11 +106,11 @@
                 }else{
                     this.selectedemployees=[];
                     for(let l of this.allemployees){
-                        if(l.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
+                        if(l.user.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedemployees.push(l);
-                        }else if(l.price.toString().indexOf(this.search.toLowerCase().trim())>-1){
+                        }else if(l.id.toString().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedemployees.push(l);
-                        }else if(l.id.toString().indexOf(this.search.trim())>-1){
+                        }else if(l.user.email.toString().indexOf(this.search.trim())>-1){
                             this.selectedemployees.push(l);
                         }
                     }
@@ -137,7 +137,8 @@
                     cancelButtonText: 'Cancelar',
                     type:'warning'
                 }).then(()=>{
-                    axios.delete(`/empleados/${item.id}`).then(res=>{
+                    console.log(item.id);
+                    axios.delete(`/admin/empleados/${item.id}`).then(res=>{
                         if(res.data['information'] === 'good'){
                             this.allemployees.splice(this.allemployees.findIndex(a=>a.id === item.id),1);
                             this.searching(2);

@@ -31,7 +31,9 @@ class EmployeeController extends Controller
     public function create()
     {
         $employee = new Employee();
-        $employee->id=\DB::getPdo()->lastInsertId()+1;
+        $all=Employee::orderBy('id', 'DESC')->get();
+        // dd($all);
+         $employee->id=sizeof($all)==0?1:$all[0]->id+1;
         $employee->rol = -1;
         $employee->rfc='';
         $employee->address='';
@@ -49,6 +51,8 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+            if($request->edit===null){
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -56,13 +60,25 @@ class EmployeeController extends Controller
         $user->password = $request->password;
         $user->rol = 1;
         $user->save();
+            }
+        if($request->edit!=null){
+            $employee = Employee::findorFail($request->edit);
+            }else{
         $employee = new Employee();
         $employee->idUser=$user->id;
+            }
+        $user=$employee->user;
+        $user->name=$request->name;
+        $user->email = $request->email;
+        $user->save();
         $employee->rfc = $request->rfc;
         $employee->address = $request->address;
         $employee->workplace = $request->workplace;
         $employee->save();
-        return;
+        }catch(\Exception $p){
+            return 0;
+        }
+        return 1;
     }
 
     /**

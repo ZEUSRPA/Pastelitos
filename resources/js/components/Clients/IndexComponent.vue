@@ -106,7 +106,7 @@
                     for(let l of this.allclients){
                         if(l.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedclients.push(l);
-                        }else if(l.price.toString().indexOf(this.search.toLowerCase().trim())>-1){
+                        }else if(l.email.indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedclients.push(l);
                         }else if(l.id.toString().indexOf(this.search.trim())>-1){
                             this.selectedclients.push(l);
@@ -135,7 +135,9 @@
                     cancelButtonText: 'Cancelar',
                     type:'warning'
                 }).then(()=>{
-                    axios.delete(`/clientes/${item.id}`).then(res=>{
+                    console.log(item.id);
+                    axios.delete(`/admin/clientes/${item.id}`).then(res=>{
+                        console.log(res.data);
                         if(res.data['information'] === 'good'){
                             this.allclients.splice(this.allclients.findIndex(a=>a.id === item.id),1);
                             this.searching(2);
