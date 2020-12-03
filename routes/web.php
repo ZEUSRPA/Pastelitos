@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/devoluciones/editar/{id}',[App\Http\Controllers\DevolutionController::class,'edit'])->name('sales.edit');
     Route::apiResource('/devoluciones',App\Http\Controllers\DevolutionController::class);
 
+    Route::get('/pedidos/detalle/',[App\Http\Controllers\OrderDetailController::class,'create'])->name('ordersDetail.create');
 
     Route::get('/pedidos/agregar/',[App\Http\Controllers\OrderController::class,'create'])->name('orders.create');
     Route::get('/pedidos/{id}',[App\Http\Controllers\OrderController::class,'show'])->name('orders.details');

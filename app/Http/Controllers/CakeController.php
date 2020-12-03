@@ -42,6 +42,7 @@ class CakeController extends Controller
         $cake->description = '';
         $cake->price = -1.0;
         $cake->image = '';
+        $cake->quantity=0;
         $data = ['cake'=>$cake];
         return view('cakes/createEdit',$data);
     }
