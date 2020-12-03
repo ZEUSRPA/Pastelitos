@@ -6,7 +6,7 @@
           <h1>Empleados</h1>
         </div>
         <div class="col-12">
-          <div class="card"> 
+          <div class="card">
             <div class="card-header">
               <h4 v-if="selectedView === 'addView'">Agregar Empleado</h4>
               <h4 v-else>Editar Empleado</h4>
@@ -14,7 +14,10 @@
             <div class="card-body">
               <form @submit.prevent="">
                 <div class="col-sm-4 col-lg-2 text-left m-0 p-0">
-                  <button class="btn btn-info form-button m-3" @click="showList()">
+                  <button
+                    class="btn btn-info form-button m-3"
+                    @click="showList()"
+                  >
                     <i class="el-icon-s-fold"></i>
                   </button>
                   <br />
@@ -186,11 +189,11 @@ export default {
       this.allemployees = res.data;
       if (this.employee.rol === -1) {
         this.selectedView = "addView";
-        this.employee.user.name="";
-        this.employee.user.email="";
-        this.employee.user.password="";
-        this.employee.user.confirm="";
-        this.employee.user.phone="";
+        this.employee.user.name = "";
+        this.employee.user.email = "";
+        this.employee.user.password = "";
+        this.employee.user.confirm = "";
+        this.employee.user.phone = "";
       } else {
         this.selectedView = "updateView";
       }
@@ -199,49 +202,54 @@ export default {
   methods: {
     setParams() {
       var params = new FormData();
-      params.append("name",this.employee.user.name);
-      params.append("email",this.employee.user.email);
-      params.append("phone",this.employee.user.phone);
-      params.append("rfc",this.employee.rfc);
-      params.append("address",this.employee.address);
-      params.append("workplace",this.employee.workplace);
+      params.append("name", this.employee.user.name);
+      params.append("email", this.employee.user.email);
+      params.append("phone", this.employee.user.phone);
+      params.append("rfc", this.employee.rfc);
+      params.append("address", this.employee.address);
+      params.append("workplace", this.employee.workplace);
 
-      if(this.employee.user.password != null){
-        params.append("password",this.employee.user.password);
-      }else{
-        params.append("password","");
+      if (this.employee.user.password != null) {
+        params.append("password", this.employee.user.password);
+      } else {
+        params.append("password", "");
       }
       return params;
-      
     },
     addProcedure() {
       this.employee.user.name = this.employee.user.name.trim();
 
-      if (this.employee.user.name === "" || this.employee.user.email === "" || this.employee.rfc === ""  || this.employee.workplace === "") {
+      if (
+        this.employee.user.name === "" ||
+        this.employee.user.email === "" ||
+        this.employee.rfc === "" ||
+        this.employee.workplace === ""
+      ) {
         this.showErrorNotification(
           "Campos incompletos",
           "Debe llenar todos los campos"
         );
         return;
       }
-      if(this.employee.user.password.lenght < 8){
+      if (this.employee.user.password.lenght < 8) {
         this.showErrorNotification(
           "La clave es debil",
           "La clave debe tener al menos 8 caracteres"
         );
         return;
       }
-      if(this.employee.user.confirm != this.employee.user.password){
-        this.showErrorNotification(
-          "Las claves no coinciden",
-          ""
-        );
+      if (this.employee.user.confirm != this.employee.user.password) {
+        this.showErrorNotification("Las claves no coinciden", "");
         return;
       }
       var params = this.setParams();
-
+      console.log(this.employee);
       axios.post("/admin/empleados", params).then((res) => {
-        
+        if (res.data == 0) {
+          this.showErrorNotification("Empleado", "El correo ya existe");
+          return;
+        }
+        console.log(res.data);
         this.showSuccessNotification(
           "Empleado agregado",
           "Empleado agregado exitosamente."
@@ -267,7 +275,6 @@ export default {
       this.employee.user.name = this.employee.user.name.trim();
       if (
         this.employee.user.name === "" ||
-        document.getElementById("deleteImg").style.visibility != "visible" ||
         this.employee.price < 0 ||
         this.employee.description === ""
       ) {
@@ -279,14 +286,19 @@ export default {
       }
       var params = this.setParams();
       params.append("edit", this.employee.id);
+      
       axios.post("/admin/empleados/", params).then((res) => {
+        if (res.data == 0) {
+          this.showErrorNotification("Empleado", "El correo ya existe");
+          return;
+        }
         const index = this.allemployees.findIndex(
           (search) => search.id === res.data.id
         );
         this.allemployees[index] = res.data;
         this.showSuccessNotification(
           "Empleado editado",
-          "Se ha editado el pastel exitosamente"
+          "Se ha editado el empleado exitosamente"
         );
         window.location.href = "/admin/empleados/";
       });
@@ -302,7 +314,7 @@ export default {
     },
     cancelUpdate() {
       window.history.go(-1);
-    }
+    },
   },
 };
 </script>

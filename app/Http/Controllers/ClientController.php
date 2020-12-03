@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -18,7 +19,6 @@ class ClientController extends Controller
     {
         if($request->ajax()){
             
-        
             return User::where('rol',2)->get();
         }else{
             return view('clients/index');
@@ -32,8 +32,10 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $client = new Client();
-        $client->id=\DB::getPdo()->lastInsertId()+1;
+        $client = new User();
+        $all=User::orderBy('id', 'DESC')->get();
+       // dd($all);
+        $client->id=sizeof($all)==0?1:$all[0]->id+1;
         $client->name = '';
         $client->email = '';
         $client->phone = '';
@@ -52,14 +54,20 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        try{
         $user = new User();
+        //$user->id=$user->id;
+       // return $user->id;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->password = $request->password;
+        $user->password=Hash::make($request->password);
         $user->rol = 2;
         $user->save();
-        return;
+        }catch(\Exception $p){
+            return 0;
+        }
+        return 1;
     }
 
     /**
@@ -98,10 +106,18 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+       // return $id;
+       try{
         $user = User::findorFail($id);
         $user->name = $request->name;
+        $user->phone=$request->phone;
+        $user->email=$request->email;
+        $user->password=Hash::make($request->password);
         $user->save();
-        return;
+       }catch(\Exception $p){
+           return 0;
+       }
+        return 1;
     }
 
     /**

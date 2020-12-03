@@ -15,24 +15,22 @@
               </button>
               <br />
             </div>
-            <div class="card">
-
-            </div>
+            <div class="card"></div>
             <div class="row">
               <dir class="row justify-content-left m-0 p-0">
                 <div class="col-xs-12 m-0 p-0 text-left row">
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> 
+                      <div class="card-header">
                         <h4>Informacion General</h4>
                       </div>
                       <div class="card-body row">
                         <div class="row col-12">
                           <div class="col-xs-12 col-md-6 m-0">
-                            <h4>Folio: {{sale.id}}</h4>
+                            <h4>Folio: {{ sale.id }}</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 m-0">
-                            <h4>Fecha: {{sale.date}}</h4>
+                            <h4>Fecha: {{ sale.date }}</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 m-0">
                             <h4>ID Empleado:</h4>
@@ -44,8 +42,8 @@
                       </div>
                     </div>
                   </div>
-                  <br>
-                  <br>
+                  <br />
+                  <br />
                   <div class="col-12 mt-5">
                     <div class="card">
                       <div class="card-header">
@@ -60,7 +58,7 @@
                               placeholder="ID Pastel"
                               class="form-control mb-2 text-left"
                               v-model="cake.id"
-                              v-on:keyup="checkit"
+                              v-on:change="checkit"
                             />
                           </div>
                         </div>
@@ -124,103 +122,116 @@
                           <button
                             class="btn btn-success form-button m-3 col-sm-6 col-lg-4"
                             @click="setProcedure()"
-                          >Agregar Pastel
+                          >
+                            Agregar Pastel
                           </button>
                         </div>
-
                       </div>
-
                     </div>
                   </div>
-                  <br>
-                  <br>
+                  <br />
+                  <br />
                   <div class="col-12 m-0 mt-5">
-                      <div class="card">
-                        <div class="card-header">
-                          <h4>Pasteles en la Venta</h4>
-                        </div>
-                        <div class="card-body">
-                          <div class="table-responsive m-0 p-0">
-                                <table class="table table-hover table-striped table-bordered bg-white">
-                                    <thead class="thead-dark">
-                                        <tr class="text-center">
-                                            <th @click="sortTable('id')">ID</th>
-                                            <th @click="sortTable('name')" class="w-25">PASTEL</th>
-                                            <th @click="sortTable('description')" class="w-25">DESCRIPCION</th>
-                                            <th @click="sortTable('price')">PRECIO</th>
-                                            <th @click="sortTable('quantity')">CANTIDAD</th>
-                                            <th @click="sortTable('importe')">IMPORTE</th>
-                                            <th>OPCIONES</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(item,index) in sales" :key="index" class="text-center">
-                                            <td>{{item.id}}</td>
-                                            <td class="w-25">{{item.name}}</td>
-                                            <td class="w-25">{{item.description}}</td>
-                                            <td >{{item.price}}</td>
-                                            <td >{{item.quantity}}</td>
-                                            <td >{{item.importe}}</td>
-                                            <td class="m-0 p-0">
-                                                <div class="col-12 m-0 p-0">
-                                                    <button class="btn btn-danger m-1 col-xl-3 col-xs-12" @click="unSetProcedure(item)"><i class="el-icon-delete"></i></button>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-12 m-0 ">
-                              <h5>Subtotal</h5>
-                              <div class="w-25">
-                              <input
-                                  type="number"
-                                  step="0.1"
-                                  min="0"
-                                  placeholder="Subtotal"
-                                  class="form-control text-left"
-                                  v-model="sale.sub"
-                                  disabled
-                              />
-                              </div>
-                            </div>
-                            <div class="col-12">
-                              <h5>IVA</h5>
-                              <div class="w-25">
-                              <input
-                                  type="number"
-                                  step="0.1"
-                                  min="0"
-                                  placeholder="IVA"
-                                  class="form-control text-left"
-                                  v-model="sale.iva"
-                                  disabled
-                              />
-                              </div>
-                            </div>
-                            <div class="col-12">
-                              <h5>Total</h5>
-                              <div class="w-25">
-                              <input
-                                  type="number"
-                                  step="0.1"
-                                  min="0"
-                                  placeholder="Subtotal"
-                                  class="form-control text-left"
-                                  v-model="sale.total"
-                                  disabled
-                              />
-                              </div>
-                            </div>
-                        </div>
-
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>Pasteles en la Venta</h4>
                       </div>
-
+                      <div class="card-body">
+                        <div class="table-responsive m-0 p-0">
+                          <table
+                            class="table table-hover table-striped table-bordered bg-white"
+                          >
+                            <thead class="thead-dark">
+                              <tr class="text-center">
+                                <th @click="sortTable('id')">ID</th>
+                                <th @click="sortTable('name')" class="w-25">
+                                  PASTEL
+                                </th>
+                                <th
+                                  @click="sortTable('description')"
+                                  class="w-25"
+                                >
+                                  DESCRIPCION
+                                </th>
+                                <th @click="sortTable('price')">PRECIO</th>
+                                <th @click="sortTable('quantity')">CANTIDAD</th>
+                                <th @click="sortTable('importe')">IMPORTE</th>
+                                <th>OPCIONES</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                v-for="(item, index) in sales"
+                                :key="index"
+                                class="text-center"
+                              >
+                                <td>{{ item.id }}</td>
+                                <td class="w-25">{{ item.name }}</td>
+                                <td class="w-25">{{ item.description }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.importe }}</td>
+                                <td class="m-0 p-0">
+                                  <div class="col-12 m-0 p-0">
+                                    <button
+                                      class="btn btn-danger m-1 col-xl-3 col-xs-12"
+                                      @click="unSetProcedure(item)"
+                                    >
+                                      <i class="el-icon-delete"></i>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="col-12 m-0">
+                          <h5>Subtotal</h5>
+                          <div class="w-25">
+                            <input
+                              type="number"
+                              step="0.1"
+                              min="0"
+                              placeholder="Subtotal"
+                              class="form-control text-left"
+                              v-model="sale.sub"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <h5>IVA</h5>
+                          <div class="w-25">
+                            <input
+                              type="number"
+                              step="0.1"
+                              min="0"
+                              placeholder="IVA"
+                              class="form-control text-left"
+                              v-model="sale.iva"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <h5>Total</h5>
+                          <div class="w-25">
+                            <input
+                              type="number"
+                              step="0.1"
+                              min="0"
+                              placeholder="Subtotal"
+                              class="form-control text-left"
+                              v-model="sale.total"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
 
                   <div class="col-12 m-0 mt-5">
-                    
                     <!-- <div
                       class="col-sm-12 text-center"
                       v-if="selectedView === 'updateView'"
@@ -232,77 +243,76 @@
                         <i class="el-icon-finished"></i>Agregar Pastel
                       </button>
                     </div> -->
-                    
-                      <div class="card">
-                        <div class="card-header">
-                          <h4>Informacion de Venta</h4>
-                        </div>
-                        <div class="card-body row">
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>ID Cliente</h4>
-                            <div class="w-100">
-                            <input
-                                type="number"
-                                placeholder="ID Cliente"
-                                class="form-control mb-2 text-left"
-                                v-model="sale.id_client"
-                                v-on:keyup="searchClient"
-                            />
-                            </div>
-                          </div>
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>Nombre Cliente</h4>
-                            <div class="w-100">
-                            <input
-                                type="text"
-                                placeholder="Nombre Cliente"
-                                class="form-control mb-2 text-left"
-                                v-model="sale.client"
-                                disabled
-                            />
-                            </div>
-                          </div>
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>ID Cupon</h4>
-                            <div class="w-100">
-                            <input
-                                type="number"
-                                placeholder="ID Cupon"
-                                class="form-control mb-2 text-left"
-                                v-model="sale.id_coupon"
-                                v-on:keyup="searchCoupon"
-                            />
-                            </div>
-                          </div>
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>Cupon</h4>
-                            <div class="w-100">
-                            <input
-                                type="text"
-                                placeholder="Cupon"
-                                class="form-control mb-2 text-left"
-                                v-model="sale.coupon"
-                                disabled
-                            />
-                            </div>
-                          </div >
-                          
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>Metodo de pago</h4>
-                            <div class="w-100">
-                                <select v-model="sale.paymethod" class="browser-default custom-select">
-                                  <option value="Efectivo">Efectivo</option>
-                                  <option value="Tarjeta">Tarjeta</option>
-                                </select>
-                            </div>
-                          </div>
 
-                        </div>
-
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>Informacion de Venta</h4>
                       </div>
-                      <div
-                      class="col-sm-12 text-center"
-                    >
+                      <div class="card-body row">
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>ID Cliente</h4>
+                          <div class="w-100">
+                            <input
+                              type="number"
+                              placeholder="ID Cliente"
+                              class="form-control mb-2 text-left"
+                              v-model="sale.id_client"
+                              v-on:keyup="searchClient"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Nombre Cliente</h4>
+                          <div class="w-100">
+                            <input
+                              type="text"
+                              placeholder="Nombre Cliente"
+                              class="form-control mb-2 text-left"
+                              v-model="sale.client"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>ID Cupon</h4>
+                          <div class="w-100">
+                            <input
+                              type="number"
+                              placeholder="ID Cupon"
+                              class="form-control mb-2 text-left"
+                              v-model="sale.id_coupon"
+                              v-on:keyup="searchCoupon"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Cupon</h4>
+                          <div class="w-100">
+                            <input
+                              type="text"
+                              placeholder="Cupon"
+                              class="form-control mb-2 text-left"
+                              v-model="sale.coupon"
+                              disabled
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <h4>Metodo de pago</h4>
+                          <div class="w-100">
+                            <select
+                              v-model="sale.paymethod"
+                              class="browser-default custom-select"
+                            >
+                              <option value="Efectivo">Efectivo</option>
+                              <option value="Tarjeta">Tarjeta</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 text-center">
                       <button
                         class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
                         @click="addProcedure()"
@@ -318,7 +328,6 @@
               <br />
             </div>
           </form>
-
         </div>
       </div>
     </div>
@@ -333,11 +342,12 @@ export default {
   data() {
     return {
       allsales: [],
-      isValidPastel:true,
-      sales:[],
+      isValidPastel: true,
+      sales: [],
       isDragging: false,
       array: [],
-      cake:{id:0},
+      cake: { id: 0 },
+      allcakes: [],
       selectedView: "addView",
       csrf: document
         .querySelector('meta[name="csrf-token"]')
@@ -347,15 +357,15 @@ export default {
   created() {
     axios.get("/admin/ventas").then((res) => {
       this.allsales = res.data;
-      
-      
-      
     });
-    if(this.sale.id==0){
-      this.sale.paymethod="Efectivo";
+    axios.get("/admin/pasteles").then((res) => {
+      this.allcakes = res.data;
+    });
+    if (this.sale.id == 0) {
+      this.sale.paymethod = "Efectivo";
       this.selectedView = "addView";
-      this.sale.id=this.allsales.length+1;
-      var x={name:"Pastel de chocolate",id:1,price:245.00};
+      this.sale.id = this.allsales.length + 1;
+      var x = { name: "Pastel de chocolate", id: 1, price: 245.0 };
       this.allsales.append(x);
     }
   },
@@ -388,10 +398,10 @@ export default {
     },
     addProcedure() {
       this.showSuccessNotification(
-          "Venta registrada",
-          "Venta registrada exitosamente."
-        );
-        return;
+        "Venta registrada",
+        "Venta registrada exitosamente."
+      );
+      return;
       this.cake.name = this.cake.name.trim();
 
       if (
@@ -418,40 +428,44 @@ export default {
         window.location.href = "/admin/ventas/";
       });
     },
-    searchClient(){
-        if(this.sale.id_client!='0'){
-            this.sale.client='Zeus';
-        }else{
-            this.sale.client='';
-        }
+    searchClient() {
+      if (this.sale.id_client != "0") {
+        this.sale.client = "Zeus";
+      } else {
+        this.sale.client = "";
+      }
     },
-    searchEmployee(){
-        if(this.sale.id_employee!=0){
-            this.sale.employee='Juan';
-            this.sale.employee='';
-        }
+    searchEmployee() {
+      if (this.sale.id_employee != 0) {
+        this.sale.employee = "Juan";
+        this.sale.employee = "";
+      }
     },
-    searchCoupon(){
-        if(this.sale.id_coupon!=0){
-            this.sale.coupon=50;
-        }
+    searchCoupon() {
+      if (this.sale.id_coupon != 0) {
+        this.sale.coupon = 50;
+      }
     },
-    setProcedure(){
-      this.cake.id=1;
-      this.cake.name="Pastel de chocolate";
-      this.cake.price=245.00*.55;
-        if(this.cake.id==1){
-            this.sales.push(this.cake);
-            this.sale.sub+=245.00*.55;
-            this.sale.iva=this.sale.sub*.16;
-            this.sale.total=this.sale.iva+this.sale.sub;
-        }
+    setProcedure() {
+      var x={
+        id:this.cake.id,
+        name:this.cake.name,
+        price:this.cake.price,
+        description:this.cake.description
+      };
+      this.sales.push(x);
+      this.sale.sub += 245.0 * 0.55;
+      this.sale.iva = this.sale.sub * 0.16;
+      this.sale.total = this.sale.iva + this.sale.sub;
     },
-    unSetProcedure(item){
-        this.sales.splice(this.sales.findIndex(a=>a.id === item.id),1);
-        this.sale.sub-=500;
-        this.sale.iva=this.sale.sub*.16;
-        this.sale.total=this.sale.iva+this.sale.sub;
+    unSetProcedure(item) {
+      this.sales.splice(
+        this.sales.findIndex((a) => a.id === item.id),
+        1
+      );
+      this.sale.sub -= 500;
+      this.sale.iva = this.sale.sub * 0.16;
+      this.sale.total = this.sale.iva + this.sale.sub;
     },
     showSuccessNotification(title, text) {
       this.$notify({
@@ -519,16 +533,25 @@ export default {
         this.isDragging = false;
       }
     },
-    checkit(){
-        // if(this.cake.id==10 || this.cake.id==100){
-        //     this.cake.name="Pastel de chocolate";
-        //     this.cake.description= "Pastel para 5 personas sabor chocolate";
-        //     this.cake.price = 500;
-        // }else{
-        //     this.cake.name="";
-        //     this.cake.description= "";
-        //     this.cake.price = 0;
-        // }
+    checkit() {
+      this.cake.id = Number(this.cake.id);
+      console.log(this.cake);
+      var id = this.allcakes.findIndex(
+        (a) => a.id.toString() === this.cake.id.toString()
+      );
+      // console.log(id);
+      if (id == -1) {
+        this.cake.name = "";
+        this.cake.description = "";
+        this.cake.price = 0;
+        return;
+      }
+      console.log(this.allcakes[id]);
+      this.cake.name = this.allcakes[id].name;
+      this.cake.description = this.allcakes[id].description;
+      this.cake.price = this.allcakes[id].price;
+      this.cake.id = this.allcakes[id].id;
+      console.log(this.cake);
     },
     onDrop(e) {
       e.preventDefault();

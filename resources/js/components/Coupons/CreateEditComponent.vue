@@ -14,14 +14,19 @@
             <div class="card-body">
               <form @submit.prevent="">
                 <div class="col-sm-4 col-lg-2 text-left m-0 p-0">
-                  <button class="btn btn-info form-button m-3" @click="showList()">
+                  <button
+                    class="btn btn-info form-button m-3"
+                    @click="showList()"
+                  >
                     <i class="el-icon-s-fold"></i>
                   </button>
                   <br />
                 </div>
                 <div class="col-12">
-                  <dir class=" justify-content-center m-0 p-0">
-                    <div class="col-12 m-0 p-0 text-left justify-content-center">
+                  <dir class="justify-content-center m-0 p-0">
+                    <div
+                      class="col-12 m-0 p-0 text-left justify-content-center"
+                    >
                       <div class="row mt-5">
                         <div class="col-xs-12 col-md-6 col-lg-3 m-0">
                           <h4>ID</h4>
@@ -50,12 +55,17 @@
                           </div>
                         </div>
                         <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>Fecha de Expiracion</h4>
-                            <div class="w-100">
-                                <el-date-picker type="date" v-model="expiration" placeholder="Seleccione una fecha" class="w-100 p-1 date" format="dd/MM/yyyy"></el-date-picker>
-                            </div>
+                          <h4>Fecha de Expiracion</h4>
+                          <div class="w-100">
+                            <input
+                              type="date"
+                              v-model="expiration"
+                              placeholder="Seleccione una fecha"
+                              class="w-100 p-1 date"
+                            />
+
+                          </div>
                         </div>
-                        
 
                         <div class="row col-12">
                           <div
@@ -81,7 +91,6 @@
                             </button>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </dir>
@@ -90,7 +99,6 @@
                   <br />
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -109,46 +117,50 @@ export default {
       allcoupons: [],
       isDragging: false,
       array: [],
-      expiration:'',
+      expiration: null,
       selectedView: "addView",
-      
     };
   },
   mounted() {
     axios.get("/admin/cupones").then((res) => {
       this.allcoupons = res.data;
-      
     });
     if (this.coupon.percentage === -1) {
       this.selectedView = "addView";
-      this.coupon.percentage=0;
+      this.coupon.percentage = 0;
     } else {
       this.selectedView = "updateView";
-      this.expiration=this.coupon.expiration;
+      this.expiration = this.coupon.expiration;
     }
   },
   methods: {
     setParams() {
-        var params = new FormData();
-        this.coupon.expiration=this.expiration.toString();
-        params.append("percentage",this.coupon.percentage);
-        params.append("expiration",this.coupon.expiration);
-        console.log(this.coupon.expiration);
-        return params;
-      
+      var params = new FormData();
+      this.coupon.expiration = this.expiration.toString();
+      params.append("percentage", this.coupon.percentage);
+      params.append("expiration", this.coupon.expiration);
+      console.log(this.coupon.expiration);
+      return params;
     },
     addProcedure() {
-      var auxdate=new Date(this.expiration);
-      console.log(auxdate);
-      var today=new Date();
-      if (auxdate<today) {
+      if (this.expiration ==null) {
         this.showErrorNotification(
           "Fecha invalida",
           "La fecha debe ser igual o posterior a la fecha actual"
         );
         return;
       }
-      if(this.coupon.percentage<1){
+      var auxdate = new Date(this.expiration);
+      console.log(auxdate);
+      var today = new Date();
+      if (auxdate < today ) {
+        this.showErrorNotification(
+          "Fecha invalida",
+          "La fecha debe ser igual o posterior a la fecha actual"
+        );
+        return;
+      }
+      if (this.coupon.percentage < 1) {
         this.showErrorNotification(
           "Descuento invalido",
           "El descuento debe ser mayor a 0"
@@ -156,14 +168,14 @@ export default {
         return;
       }
       var params = this.setParams();
-
+      console.log(this.coupon);
       axios.post("/admin/cupones", params).then((res) => {
         console.log(res.data);
         this.showSuccessNotification(
           "Cupon agregado",
           "Cupon agregado exitosamente."
         );
-        //window.location.href = "/admin/cupones/";
+        window.location.href = "/admin/cupones/";
       });
     },
     showSuccessNotification(title, text) {
@@ -181,17 +193,24 @@ export default {
       });
     },
     updateProcedure() {
-      var auxdate=new Date(this.expiration);
-      console.log(auxdate);
-      var today=new Date();
-      if (auxdate<today) {
+      if (this.expiration ==null) {
         this.showErrorNotification(
           "Fecha invalida",
           "La fecha debe ser igual o posterior a la fecha actual"
         );
         return;
       }
-      if(this.coupon.percentage<1){
+      var auxdate = new Date(this.expiration);
+      console.log(auxdate);
+      var today = new Date();
+      if (auxdate < today) {
+        this.showErrorNotification(
+          "Fecha invalida",
+          "La fecha debe ser igual o posterior a la fecha actual"
+        );
+        return;
+      }
+      if (this.coupon.percentage < 1) {
         this.showErrorNotification(
           "Descuento invalido",
           "El descuento debe ser mayor a 0"
@@ -199,14 +218,15 @@ export default {
         return;
       }
       var params = this.setParams();
-
-      axios.post("/admin/cupones", params).then((res) => {
-        console.log(res.data);
+      params.append("edit", this.coupon.id);
+      axios.put(`/admin/cupones/${this.coupon.id}`, this.coupon).then((res) => {
+        //console.log(res.data);
+        
         this.showSuccessNotification(
           "Cupon agregado",
           "Cupon agregado exitosamente."
         );
-        //window.location.href = "/admin/cupones/";
+        window.location.href = "/admin/cupones/";
       });
     },
     showList() {

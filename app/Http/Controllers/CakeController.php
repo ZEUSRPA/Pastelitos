@@ -37,7 +37,9 @@ class CakeController extends Controller
     public function create()
     {
         $cake = new Cake();
-        $cake->id=\DB::getPdo()->lastInsertId()+1;
+        $all=Cake::orderBy('id', 'DESC')->get();
+        // dd($all);
+        $cake->id=sizeof($all)==0?1:$all[0]->id+1;
         $cake->name = '';
         $cake->description = '';
         $cake->price = -1.0;

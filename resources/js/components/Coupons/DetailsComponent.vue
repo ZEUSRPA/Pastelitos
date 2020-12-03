@@ -9,7 +9,7 @@
           <div class="card">
             <div class="card-header text-center">
               <h4 v-if="selectedView === 'addView'">Agregar Cupon</h4>
-              <h4 v-else>Editar Cupon</h4>
+              <h4 v-else>Detalles Cupon</h4>
             </div>
             <div class="card-body">
               <form @submit.prevent="">
@@ -51,10 +51,17 @@
                           </div>
                         </div>
                         <div class="col-xs-12 col-md-6 col-lg-3 m-0">
-                            <h4>Fecha de Expiracion</h4>
-                            <div class="w-100">
-                                <el-date-picker type="date" v-model="coupon.expiration" placeholder="Seleccione una fecha" class="w-100 p-1 date" disabled></el-date-picker>
-                            </div>
+                                  <h4>Fecha de Expiracion</h4>
+                          <div class="w-100">
+                            <input
+                              type="date"
+                              v-model="coupon.expiration"
+                              placeholder="Seleccione una fecha"
+                              class="w-100 p-1 date"
+                              disabled
+                            />
+
+                          </div>
                         </div>
                         
 

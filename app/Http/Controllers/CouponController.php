@@ -30,9 +30,11 @@ class CouponController extends Controller
     public function create()
     {
         $coupon =  new Coupon();
-        $coupon->id=\DB::getPdo()->lastInsertId()+1;
+        $all=Coupon::orderBy('id', 'DESC')->get();
+       // dd($all);
+       $coupon->id=sizeof($all)==0?1:$all[0]->id+1;
         $coupon->percentage=-1;
-        $coupon->expiration=null;
+        $coupon->expiration=new \DateTime();
         $data= ['coupon'=>$coupon];
         return view('coupons/createEdit',$data);
     }
