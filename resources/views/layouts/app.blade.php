@@ -126,16 +126,18 @@
                         <li class="nav-item"><a href="#works" class="nav-link">Portafolio</a></li>
                         <li class="nav-item"><a href="#experience" class="nav-link">Experiencia</a></li> 
                         <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>-->
-
-                        <li class="nav-item"><a href="/administrar" class="nav-link">Administrar</a></li>
+                       @guest
+                       <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
+                       
+                       @else
+                        <li class="nav-item"><a href="/admin/clientes" class="nav-link">Administrar</a></li>
                         <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
-                        
- </ul>
+                        @endguest
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-
                         @guest
                         @if (Route::has('login'))
                         <li class="nav-item">
