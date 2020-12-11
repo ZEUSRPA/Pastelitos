@@ -59,6 +59,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     
         Route::get('/pedidos/detalle/',[App\Http\Controllers\OrderDetailController::class,'create'])->name('ordersDetail.create');
         
+        Route::post('/pedidos/detalle',[App\Http\Controllers\OrderDetailController::class,'store'])->name('orders.createDetails');
         Route::get('/pedidos/agregar/',[App\Http\Controllers\OrderController::class,'create'])->name('orders.create');
         Route::get('/pedidos/{id}',[App\Http\Controllers\OrderController::class,'show'])->name('orders.details');
         Route::get('/pedidos/editar/{id}',[App\Http\Controllers\OrderController::class,'edit'])->name('orders.edit');

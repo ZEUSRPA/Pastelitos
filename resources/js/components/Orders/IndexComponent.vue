@@ -3,7 +3,7 @@
         <div id="" class="">
             <div class="m-19">
                 <div class="">
-                    <h1>Listado de pedidos</h1><br><br>
+                    <h1>Listado de Pedidos</h1><br><br>
                 </div>
                 <div class="row col-12">
                     <div class="row col-12 m-0 p-0">
@@ -60,15 +60,17 @@
 
 <script>
     export default{
+        props:{
+            orders:[]
+        },
         data(){
             return {
-                orders:[],
                 order:0,
-                allorders:[],
                 auxi:{},
+                allorders:[],
                 pagination:10.0,
                 selectedorders:[],
-                cake:{name: ''},
+                order:{name: ''},
                 actualPage:0,
                 totalPages:0,
                 search:'',
@@ -76,13 +78,13 @@
             }
         },
         created:function(){
-            axios.get('/admin/pedidos').then(res=>{
-                this.allorders=res.data;
-                console.log(this.allorders);
-                this.selectedorders=this.allorders;
-                this.totalPages=Math.ceil(this.selectedorders.length/this.pagination);
-                this.searching(2);
-            });
+            this.allorders=this.orders;
+            
+            console.log(this.allorders);
+            this.selectedorders=this.allorders;
+            this.totalPages=Math.ceil(this.selectedorders.length/this.pagination);
+            this.searching(2);
+            
 
         },
         methods:{
@@ -100,11 +102,11 @@
                 }else{
                     this.selectedorders=[];
                     for(let l of this.allorders){
-                        if(l.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
+                        if(l.user.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedorders.push(l);
-                        }else if(l.price.toString().indexOf(this.search.toLowerCase().trim())>-1){
+                        }else if(l.id.toString().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedorders.push(l);
-                        }else if(l.id.toString().indexOf(this.search.trim())>-1){
+                        }else if(l.user.email.toString().indexOf(this.search.trim())>-1){
                             this.selectedorders.push(l);
                         }
                     }
@@ -131,7 +133,8 @@
                     cancelButtonText: 'Cancelar',
                     type:'warning'
                 }).then(()=>{
-                    axios.delete(`/pedidos/${item.id}`).then(res=>{
+                    console.log(item.id);
+                    axios.delete(`/admin/orders/${item.id}`).then(res=>{
                         if(res.data['information'] === 'good'){
                             this.allorders.splice(this.allorders.findIndex(a=>a.id === item.id),1);
                             this.searching(2);
