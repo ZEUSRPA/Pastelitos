@@ -69,27 +69,11 @@ class CakeController extends Controller
             return;
         }
         $path = $request->image->store('public');
-        $request->image= (string)$request->image->hashName();
-        
+        $ur = (string)$request->image->hashName();
         $cake = Cake::create($request->all());
-
+        $cake->image=$ur;
+        $cake->save();
         
-
-        // $cake = new Cake();
-        // $cake->name = $request->name;
-        // $cake->price = $request->price;
-        // $cake->description = $request->description;
-        // $cake->stock = $request->stock;
-        // if ($request->image != '') {
-        //     if ($request->hasFile('image')) {
-
-        //         //Storage:: delete ('public/'.$usercdu -> pic);
-        //         $path = $request->image->store('public');
-        //         $ur = (string)$request->image->hashName();
-        //         $cake->image=$ur;
-        //     }
-        // }
-        // $cake->save();
         return $cake;
     }
 
@@ -133,21 +117,17 @@ class CakeController extends Controller
     public function update(Request $request)
     {
         $cake = Cake::findorFail($request->edit);
-        if ($request->hasFile('image')){
-            $cake->name = $request->name;
-            $cake->description = $request->description;
-            $cake->price = $request->price;
-            $cake->stock = $request->stock;
-            try{
-                Storage:: delete ('public/'.$cake->image);
+        try{
+            Storage:: delete ('public/'.$cake->image);
 
-            }catch(exception $e){
+        }catch(exception $e){
 
-            }
-            $path = $request->image->store('public');
-            $ur = (string)$request->image->hashName();
-            $cake->image=$ur;
         }
+        $path = $request->image->store('public');
+        $ur = (string)$request->image->hashName();
+        $cake->image=$ur;
+        $cake->update($request->all());
+        $cake->image=$ur;
         try{
             $cake->save();
         }catch(\Illuminate\Database\QueryException $e){

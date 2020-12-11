@@ -58,15 +58,15 @@ class ClientController extends Controller
     {
         $this->authorize('create',User::class);
         try{
-        $user = new User();
-        //$user->id=$user->id;
-       // return $user->id;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password=Hash::make($request->password);
-        $user->rol = 2;
-        $user->save();
+            $user = new User();
+            //$user->id=$user->id;
+        // return $user->id;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->password=Hash::make($request->password);
+            $user->rol = 2;
+            $user->save();
         }catch(\Exception $p){
             return 0;
         }
@@ -120,12 +120,12 @@ class ClientController extends Controller
         $this->authorize('update',$model);
        // return $id;
        try{
-        $user = User::findorFail($id);
-        $user->name = $request->name;
-        $user->phone=$request->phone;
-        $user->email=$request->email;
-        $user->password=Hash::make($request->password);
-        $user->save();
+            $user = User::findorFail($id);
+            $user->name = $request->name;
+            $user->phone=$request->phone;
+            $user->email=$request->email;
+            $user->password=Hash::make($request->password);
+            $user->save();
        }catch(\Exception $p){
            return 0;
        }
