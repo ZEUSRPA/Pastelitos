@@ -1,101 +1,3 @@
-{{--<!doctype html>--}}
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-{{--<head>--}}
-{{--    <meta charset="utf-8">--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1">--}}
-{{--    <meta http-equiv="Expires" content="0">--}}
-{{--    <meta http-equiv="Last-Modified" content="0">--}}
-{{--    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">--}}
-{{--    <meta http-equiv="Pragma" content="no-cache">--}}
-{{--    <!-- CSRF Token -->--}}
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
-
-{{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
-
-{{--    <!-- Scripts -->--}}
-{{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
-{{--    <!-- Fonts -->--}}
-{{--    <link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
-{{--    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">--}}
-{{--<link rel="shortcut icon" href="" type="image/x-icon"> --}}
-
-<!-- Bootstrap -->
-{{--<link rel="stylesheet" type="text/css"  href="assets/css/bootstrap.css">--}}
-{{--<link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome/css/font-awesome.css">--}}
-
-<!-- Nivo Lightbox
-================================================== -->
-{{--<link rel="stylesheet" type="text/css" href="assets/css/nivo-lightbox.css" >--}}
-{{--<link rel="stylesheet" href="assets/css/nivo_lightbox_themes/default/default.css">--}}
-
-
-<!-- Slider
-================================================== -->
-{{--<link href="assets/css/owl.carousel.css" rel="stylesheet" media="screen">--}}
-{{--<link href="assets/css/owl.theme.css" rel="stylesheet" media="screen">--}}
-
-<!-- Stylesheet
-================================================== -->
-{{--<link rel="stylesheet" type="text/css"  href="assets/css/style.css">--}}
-{{--<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">--}}
-
-<!-- Google Fonts
-================================================== -->
-{{--<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>--}}
-{{--<script type="text/javascript" src="assets/js/modernizr.custom.js"></script>--}}
-
-{{--    <!-- Styles -->--}}
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('css/master.css') }}" rel="stylesheet">--}}
-{{--    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">--}}
-</head>
-{{--<body>--}}
-{{--<div id="app">--}}
-{{--    <el-container>--}}
-{{--        @if(Illuminate\Support\Facades\Auth::check())--}}
-{{--            <sidebar-menu-component-guest></sidebar-menu-component-guest>--}}
-
-{{--        @else--}}
-{{--            <sidebar-menu-component></sidebar-menu-component>--}}
-{{--        @endif--}}
-{{--        <el-container>--}}
-{{--            <el-header style="text-align: right; font-size: 12px; background-color: #e10127" class="d-flex align-items-center justify-content-end">--}}
-{{--                <el-row class="d-flex justify-items-end  align-items-center">--}}
-{{--                    @if(Illuminate\Support\Facades\Auth::check())--}}
-{{--                        <span class="text-white">{{Illuminate\Support\Facades\Auth::user()->name}} &nbsp;</span>--}}
-{{--                        <el-avatar shape="square" size="small"--}}
-{{--                                   src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar>--}}
-{{--                        <el-dropdown>--}}
-{{--                            <i class="el-icon-arrow-down text-white" style="margin-right: 15px"></i>--}}
-{{--                            <el-dropdown-menu slot="dropdown" >--}}
-{{--                                <el-dropdown-item onclick="window.location.href='home'">Inicio</el-dropdown-item>--}}
-{{--                                <el-dropdown-item onclick=" document.getElementById('logout-form').submit()"> Cerrar--}}
-{{--                                    sesión--}}
-{{--                                </el-dropdown-item>--}}
-{{--                                <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
-{{--                                      style="display: none;">--}}
-{{--                                    @csrf--}}
-{{--                                </form>--}}
-{{--                                <!--el-dropdown-item>Delete</el-dropdown-item-->--}}
-{{--                            </el-dropdown-menu>--}}
-{{--                        </el-dropdown>--}}
-{{--                    @else--}}
-{{--                        <a class="text-white" href="{{ route('home') }}">Inicio</a>--}}
-
-{{--                        <a class="text-white" href="{{ route('login') }}">Iniciar sesión &nbsp;&nbsp;</a>--}}
-{{--                        <a class="text-white" href="{{ route('register') }}">Registrarse</a>--}}
-{{--                    @endif--}}
-{{--                </el-row>--}}
-{{--            </el-header>--}}
-
-{{--            <el-main>--}}
-{{--                @yield('content')--}}
-{{--            </el-main>--}}
-{{--        </el-container>--}}
-{{--    </el-container>--}}
-{{--</div>--}}
-{{--</body>--}}
-{{--</html>--}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -127,93 +29,102 @@
     <link href="{{ asset('css/master.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
+    <style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
 </head>
 
 <body id="page-top">
     <div id="app">
         <div id="wrapper">
-            @if(Illuminate\Support\Facades\Auth::check())
+            @if(Illuminate\Support\Facades\Auth::user()->rol==1 )
             <sidebar-menu-component></sidebar-menu-component>
             @endif
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
-                    <nav class="navbar navbar-light navbar-expand bg-pasteleria shadow mb-4 topbar static-top">
-                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3"
-                                id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                            <!-- <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                    <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    Pastelitos
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- <li class="nav-item"><a href="#home" class="nav-link">Inicio</a></li>
+                        <li class="nav-item"><a href="#whatIdo" class="nav-link">Que hacemos</a></li>
+                        <li class="nav-item"><a href="#about" class="nav-link">Acerca de mi</a></li>
+                        <li class="nav-item"><a href="#works" class="nav-link">Portafolio</a></li>
+                        <li class="nav-item"><a href="#experience" class="nav-link">Experiencia</a></li> 
+                        <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>-->
+                       @guest
+                       <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
+                       
+                       @else
+                        <li class="nav-item"><a href="/admin/clientes" class="nav-link">Administrar</a></li>
+                        <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
+                        @endguest
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @endif
+
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
+                        @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-content dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="btn btn-light " href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                        @endguest
+                    </ul>
                 </div>
-            </form> -->
-                            <ul class="nav navbar-nav flex-nowrap ml-auto">
-                                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
-                                        data-toggle="dropdown" aria-expanded="false" href="#"><i
-                                            class="fas fa-search"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in"
-                                        aria-labelledby="searchDropdown">
-                                        <form class="form-inline mr-auto navbar-search w-100">
-                                            <div class="input-group"><input class="bg-light form-control border-0 small"
-                                                    type="text" placeholder="Search for ...">
-                                                <div class="input-group-append"><button class="btn btn-primary py-0"
-                                                        type="button"><i class="fas fa-search"></i></button></div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </li>
-                                <li>
-                                    @guest
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('welcome') }}">{{ __('Home') }}</a>
-                                </li>
-                                @if (Route::has('login'))
+            </div>
+        </nav>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                                @endif
-
-                                @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                                @endif
-                                @else
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('welcome') }}" >
-                                        {{ __('Home') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a id="navbarDropdown" class="nav-link" href="#" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar sesión') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-
-                                    @endguest
-
-                                </li>
-
-                            </ul>
-                        </div>
-                    </nav>
                     <div class="container-fluid">
                         @yield('content')
                     </div>
