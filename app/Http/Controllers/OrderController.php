@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -34,7 +37,7 @@ class OrderController extends Controller
 
     public function getAll(Request $request){
         if($request->ajax){
-            $orders = Order::with('details','employee')->get();
+            $orders = Order::with('details','employee')->first();
             foreach($orders as $order){
                 $order->details->cakes;
                 $order->employee->user;
@@ -50,17 +53,16 @@ class OrderController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();;
         $order = new Order();
         $order->id=\DB::getPdo()->lastInsertId()+1;
         $order->orderDate='';
-        $order->employee= new Employee();
-        $order->employee->user;
-        $order->employee->user=new User();
-        $order->details=[];
         $order->payMethod=1;
         $order->dueDate='';
-        $order->idEmployee = -1;
-        $order->idUser=0;
+        $order->idEmployee =1;
+        $order->employee;
+        $order->employee->user;
+        $order->idUser=-1;
         $order->status = 1;
         $data = ['order'=>$order];
         return view('orders/createEdit',$data);
@@ -74,24 +76,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->orderDate=strtotime($request->orderDate);
+        $request->dueDate=strtotime($request->dueDate);
         $order = new Order();
-        $order->orderDate = $request->orderDate;
+        $order->orderDate = date('Y-m-d',$request->orderDate);
         $order->payMethod = $request->payMethod;
-        $order->dueDate = $request->dueDate;
+        $order->dueDate = date('Y-m-d',$request->dueDate);
         $order->idEmployee = $request->idEmployee;
         $order->idUser = $request->idUser;
-        $order->status = $request->status;
+        $order->status = 1;
         $order->save();
 
-        foreach($requets->details as $aux){
-            $detail = new OrderDetail();
-            $detail->idOrder=$order->id;
-            $detail->idCake=$aux->idCake;
-            $detail->price=$aux->cake->price;
-            $detail->quantity=$aux->quantity;
-            $detail->save();
-        }
-        return;
+    
+        return $order;
     }
 
     /**

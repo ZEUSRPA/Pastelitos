@@ -23,6 +23,7 @@ class CreateOrderDetailsTable extends Migration
                 $table->foreign('idOrder')->references('id')->on('orders');
                 $table->foreign('idCake')->references('id')->on('cakes');
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }

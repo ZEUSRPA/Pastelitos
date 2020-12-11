@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 text-center justify-content-center" v-if="false">
+  <div class="p-3 text-center justify-content-center" >
     <div id="" class="">
       <div class="card">
         <div class="card-header">
@@ -29,7 +29,7 @@
                             <h4>Folio: {{order.id}}</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 m-0">
-                            <h4>Fecha: {{order.orderDate}}</h4>
+                            <h4>Fecha: {{orderDate}}</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 m-0">
                             <h4>ID Empleado:{{order.idEmployee}}</h4>
@@ -57,7 +57,7 @@
                               placeholder="ID Pastel"
                               class="form-control mb-2 text-left"
                               v-model="cake.id"
-                              v-on:keyup="checkit"
+                              v-on:keyup.enter="checkit"
                             />
                           </div>
                         </div>
@@ -113,6 +113,11 @@
                             />
                           </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <div class="col-12 m-0 p-0">
+                            <button class="btn btn-info" v-on:click="checkit()">Verificar</button>
+                          </div>
+                        </div>
                         <div
                           class="col-sm-12 text-center"
                           v-if="selectedView === 'addView'"
@@ -150,11 +155,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item,index) in orders.details" :key="index" class="text-center">
+                                        <tr v-for="(item,index) in cakesInOrder" :key="index" class="text-center">
                                             <td>{{item.idCake}}</td>
-                                            <td class="w-25">{{}}</td>
-                                            <td class="w-25">{{}}</td>
-                                            <td class="">{{}}</td>
+                                            <td class="w-25">{{item.name}}</td>
+                                            <td class="w-25">{{item.description}}</td>
+                                            <td class="">{{item.price}}</td>
                                             <td class="">{{item.quantity}}</td>
                                             <td class="">{{item.import}}</td>
                                             <td class="m-0 p-0">
@@ -215,19 +220,7 @@
 
                     </div>
 
-                  <div class="col-12 m-0 mt-5">
-                    
-                    <!-- <div
-                      class="col-sm-12 text-center"
-                      v-if="selectedView === 'updateView'"
-                    >
-                      <button
-                        class="btn btn-success form-button m-3 col-sm-12 col-lg-6"
-                        @click="setProcedure()"
-                      >
-                        <i class="el-icon-finished"></i>Agregar Pastel
-                      </button>
-                    </div> -->
+                  <div class="col-12 m-0 mt-5" >
                     
                       <div class="card">
                         <div class="card-header">
@@ -241,9 +234,10 @@
                                 type="number"
                                 placeholder="ID Cliente"
                                 class="form-control mb-2 text-left"
-                                v-model="order.idClient"
-                                v-on:keyup="searchClient"
+                                v-model="order.idUser"
+                                
                             />
+                            <button class="btn btn-info" @click="searchClient()">Buscar</button>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-6 col-lg-3 m-0">
@@ -253,7 +247,7 @@
                                 type="text"
                                 placeholder="Nombre Cliente"
                                 class="form-control mb-2 text-left"
-                                v-model="order.client.name"
+                                v-model="client.name"
                                 disabled
                             />
                             </div>
@@ -261,7 +255,7 @@
                           <div class="col-xs-12 col-md-6 col-lg-3 m-0">
                             <h4>Fecha de Entrega</h4>
                             <div class="w-100">
-                                <el-date-picker type="date" v-model="date_start" placeholder="Seleccione una fecha" class="w-100 p-1 date"></el-date-picker>
+                                <input type="date" v-model="order.dueDate" placeholder="Seleccione una fecha" class="w-100 p-1 date"/>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-6 col-lg-3 m-0">
@@ -272,8 +266,8 @@
                                 placeholder="ID Cupon"
                                 class="form-control mb-2 text-left"
                                 v-model="order.idCoupon"
-                                v-on:keyup="searchCoupon"
                             />
+                            <button class="btn btn-info" @click="searchCoupon()">Aplicar</button>
                             </div>
                           </div>
                           
@@ -284,7 +278,7 @@
                                 type="text"
                                 placeholder="Cupon"
                                 class="form-control mb-2 text-left"
-                                v-model="order.coupon.percentage"
+                                v-model="coupon.percentage"
                                 disabled
                             />
                             </div>
@@ -293,8 +287,8 @@
                             <h4>Metodo de pago</h4>
                             <div class="w-100">
                                 <select v-model="order.payMethod" class="browser-default custom-select">
-                                  <option value="Efectivo">Efectivo</option>
-                                  <option value="Tarjeta">Tarjeta</option>
+                                  <option value="1">Efectivo</option>
+                                  <option value="2">Tarjeta</option>
                                 </select>
                             </div>
                           </div>
@@ -334,35 +328,43 @@ export default {
   },
   data() {
     return {
-      allorders: [],
-      isValidPastel:true,
-      orders:[],
-      isDragging: false,
-      array: [],
+      cakesInOrder: [],
+      allcakes:[],
       import:0,
       subTotal:0,
       iva:0,
       total:0,
-      cake:{id:0},
+      cake:{id:0,name:'',price:0.0,description:'',quantity:0,import:0.0},
       selectedView: "addView",
       auxiliar:{},
-      allemployees:{}
+      allemployees:[],
+      employee:{},
+      allcoupons:[],
+      coupon:{},
+      allclients:[],
+      client:{},
+      orderDate:null
     };
   },
   created() {
     axios.get("/admin/empleados").then((res) => {
       this.allemployees = res.data;
     });
-    console.log(this.order);
-    if(this.order.idEmployee===-1){
-      this.order.paymethod="Efectivo";
-      this.selectedView = "addView";
-      this.order.id=this.allorders.length+1;
-      this.order.idEmployee=0;
-      this.order.employee={};
-      this.order.employee.user={};
-      this.order.employee.user.name='';
+    axios.get("/admin/pasteles").then((res) => {
+      this.allcakes = res.data;
+    });
+    axios.get("/admin/cupones").then((res) => {
+      this.allcoupons = res.data;
+    });
+    axios.get("/admin/clientes").then((res) => {
+      this.allclients = res.data;
+    });
 
+    console.log(this.order);
+    if(this.order.idUser===-1){
+      this.selectedView = "addView";
+      this.orderDate=new Date(); 
+      this.order.idUser=0;
     }else{
       this.selectedView="updateView";
 
@@ -370,47 +372,64 @@ export default {
   },
   methods: {
     setParams() {
-      
+      var params = new FormData();
+      params.append("orderDate",this.order.orderDate);
+      params.append("payMethod",this.order.payMethod);
+      params.append("dueDate",this.order.dueDate);
+      params.append("idEmployee",this.order.idEmployee);
+      params.append("idUser",this.order.idUser);
+      params.append("cakesinOrder",this.cakesInOrder);
+      return params;
       
     },
     addProcedure() {
-      this.showSuccessNotification(
-          "Venta registrada",
-          "Venta registrada exitosamente."
-        );
-        return;
-      this.cake.name = this.cake.name.trim();
-
-      if (
-        this.cake.name === "" ||
-        document.getElementById("deleteImg").style.visibility != "visible" ||
-        this.cake.price < 0 ||
-        this.cake.description === ""
-      ) {
+      if(this.cakesInOrder.length==0){
         this.showErrorNotification(
-          "Campos incompletos",
-          "Debe llenar todos los campos"
+          "No hay pasteles en el Pedido",
+          "Debe existir por lo menos un pastel en el pedido"
         );
         return;
       }
-      var params = this.setParams();
-
-      axios.post("/admin/ventas", params).then((res) => {
-        this.allorders.push(res.data);
-        this.showSuccessNotification(
-          "Venta agregado",
-          "Venta agregado exitosamente."
+      if(this.client.id=0){
+        this.showErrorNotification(
+          "No Se ha registrado al Cliente",
+          "Se requiere el cliente en el pedido"
         );
-        this.resetFields();
-        window.location.href = "/admin/ventas/";
+        return;
+      }
+      if(this.order.dueDate < new Date()){
+        this.showErrorNotification(
+          "La fecha de entrega no es valida",
+          "Debe ser posterior a la fecha actual"
+        );
+        return;
+      }
+      if(this.order.payMethod = 0){
+        this.showErrorNotification(
+          "El metodo de pago no es valido",
+          "Se debe seleccionar un metodo de pago"
+        );
+        return;
+      }
+      var params=this.setParams();
+      axios.post("/admin/pedidos", params).then((res) => {
+        this.order=res.data;
       });
+      for(var $y of this.cakesInOrder){
+        var par={cake:$y,order:this.order.id};
+        axios.post("/admin/pedidos/detalle", par).then((res) => {
+        });
+      }
+      
     },
     searchClient(){
-        if(this.order.id_client!='0'){
-            this.order.client='Zeus';
-        }else{
-            this.order.client='';
+        for(var $x of this.allclients){
+          if($x.id==this.order.idUser){
+              this.client=$x;
+              return;
+            }
         }
+        this.client.name='';
     },
     searchEmployee(){
         if(this.order.id_employee!=0){
@@ -419,26 +438,57 @@ export default {
         }
     },
     searchCoupon(){
-        if(this.order.id_coupon!=0){
-            this.order.coupon=50;
+      this.coupon.percentage=0;
+        for(var $xs of this.allcoupons){
+          if($xs.id==this.order.idCoupon){
+              this.coupon.id=$xs.id;
+              this.coupon.percentage=$xs.percentage;
+              return;
+            }
         }
+        
     },
     setProcedure(){
-      this.cake.id=1;
-      this.cake.name="Pastel de chocolate";
-      this.cake.price=245.00*.55;
-        if(this.cake.id==1){
-            this.orders.push(this.cake);
-            this.order.sub+=245.00*.55;
-            this.order.iva=this.order.sub*.16;
-            this.order.total=this.order.iva+this.order.sub;
+      if(this.cake.name != '' && this.cake.quantity>0){
+        var $ind=this.cakesInOrder.findIndex(item=>item.id===this.cake.id);
+        if($ind!=-1){
+          var $tem=this.cakesInOrder[$ind].quantity;
+          $tem=parseInt($tem);
+          this.cakesInOrder[$ind].quantity=+this.cake.quantity+$tem
+        }else{
+          let $co={id:0,name:'',price:0.0,description:'',quantity:0,import:0.0};
+          $co.id=this.cake.id;
+          $co.name=this.cake.name;
+          $co.description=this.cake.description;
+          $co.price=this.cake.price;
+          $co.import=this.cake.import;
+          $co.quantity=this.cake.quantity;
+          
+
+          this.cakesInOrder.push($co);
         }
+        this.subTotal=0;
+        for(var x of this.cakesInOrder){
+          x.import=x.price*x.quantity;
+          this.subTotal+=x.import;
+        }
+        this.iva=this.subTotal*.16;
+        this.total=this.iva+this.subTotal;
+        this.resetFields();
+        this.cake.id=0;
+        this.cake.quantity=0;
+      }
+
     },
     unSetProcedure(item){
-        this.orders.splice(this.orders.findIndex(a=>a.id === item.id),1);
-        this.order.sub-=500;
-        this.order.iva=this.order.sub*.16;
-        this.order.total=this.order.iva+this.order.sub;
+        this.cakesInOrder.splice(this.cakesInOrder.findIndex(a=>a.id === item.id),1);
+        this.subTotal=0;
+        for(var x of this.cakesInOrder){
+          x.import=x.price*x.quantity;
+          this.subTotal+=x.import;
+        }
+        this.iva=this.subTotal*.16;
+        this.total=this.iva+this.subTotal;
     },
     showSuccessNotification(title, text) {
       this.$notify({
@@ -455,32 +505,6 @@ export default {
       });
     },
     updateProcedure() {
-      this.cake.name = this.cake.name.trim();
-      if (
-        this.cake.name === "" ||
-        document.getElementById("deleteImg").style.visibility != "visible" ||
-        this.cake.price < 0 ||
-        this.cake.description === ""
-      ) {
-        this.showErrorNotification(
-          "Campos incompletos",
-          "Debe llenar todos los campos y el precio debe ser mayor o igual a 0"
-        );
-        return;
-      }
-      var params = this.setParams();
-      params.append("edit", this.cake.id);
-      axios.post("/admin/ventas/", params).then((res) => {
-        const index = this.allorders.findIndex(
-          (search) => search.id === res.data.id
-        );
-        this.allorders[index] = res.data;
-        this.showSuccessNotification(
-          "Venta editado",
-          "Se ha editado el pastel exitosamente"
-        );
-        window.location.href = "/admin/ventas/";
-      });
     },
     showList() {
       window.location.href = "/admin/ventas/";
@@ -494,58 +518,17 @@ export default {
     cancelUpdate() {
       window.history.go(-1);
     },
-    OnDragEnter(e) {
-      e.preventDefault();
-      this.dragCount++;
-      this.isDragging = true;
-    },
-    OnDragLeave(e) {
-      e.preventDefault();
-      this.dragCount--;
-      if (this.dragCount <= 0) {
-        this.isDragging = false;
-      }
-    },
     checkit(){
-        // if(this.cake.id==10 || this.cake.id==100){
-        //     this.cake.name="Pastel de chocolate";
-        //     this.cake.description= "Pastel para 5 personas sabor chocolate";
-        //     this.cake.price = 500;
-        // }else{
-        //     this.cake.name="";
-        //     this.cake.description= "";
-        //     this.cake.price = 0;
-        // }
-    },
-    onDrop(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.dragCount = 0;
-      this.isDragging = false;
-      const files = e.dataTransfer.files;
-      Array.from(files).forEach((file) => this.addImage(file));
-    },
-    onInputChange(e) {
-      const files = e.target.files;
-      Array.from(files).forEach((file) => this.addImage(file));
-    },
-    addImage(file) {
-      if (!file.type.match("image.*")) {
-        console.log(`${file.name} no es una imagen`);
-        this.showErrorNotification("Añadir Imagen", "No es una imagen");
-        return;
+      this.resetFields();
+      var $aux=this.cake.id;
+      for(var x of this.allcakes){
+        if(x.id==this.cake.id){
+          this.cake.name=x.name;
+          this.cake.description=x.description;
+          this.cake.price=x.price;
+          this.cake.id=$aux;
+        }
       }
-      document.getElementById("deleteImg").style.visibility = "visible";
-      var im = document.getElementById("pic");
-      document.getElementById("pic").style.visibility = "visible";
-      const img = new Image(),
-        reader = new FileReader();
-      reader.onload = (e) => (im.src = e.target.result);
-      reader.readAsDataURL(file);
-    },
-    deleteImg() {
-      document.getElementById("deleteImg").style.visibility = "hidden";
-      document.getElementById("pic").style.visibility = "hidden";
     },
   },
 };

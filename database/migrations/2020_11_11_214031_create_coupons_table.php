@@ -19,6 +19,7 @@ class CreateCouponsTable extends Migration
                 $table->integer('percentage');
                 $table->date('expiration');
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }

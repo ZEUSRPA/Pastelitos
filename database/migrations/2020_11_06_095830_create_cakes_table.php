@@ -19,9 +19,10 @@ class CreateCakesTable extends Migration
                 $table->string('name');
                 $table->string('description');
                 $table->float('price');
-                $table->string('image');
+                $table->string('image')->nullable();
                 $table->integer('stock')->unsigned;
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }

@@ -15,6 +15,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny',Employee::class);
         if($request->ajax()){
             
             return Employee::with('user')->get();
@@ -30,6 +31,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Employee::class);
         $employee = new Employee();
         $all=Employee::orderBy('id', 'DESC')->get();
         // dd($all);
@@ -51,6 +53,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create',Employee::class);
         try{
             if($request->edit===null){
         $user = new User();
@@ -89,6 +92,9 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
+        $model = new Employee();
+        $model->id=$id;
+        $this->authorize('view',$model);
         $employee = Employee::findorFail($id);
         $employee->user;
         $data = ['employee'=>$employee];
@@ -103,6 +109,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
+        $model = new Employee();
+        $model->id=$id;
+        $this->authorize('update',$model);
         $employee = Employee::findorFail($id);
         $employee->user;
         $data = ['employee'=>$employee];
@@ -129,6 +138,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Employee::class);
         try{
             $employee = Employee::findorFail($id);
             $employee->delete();

@@ -17,6 +17,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny',User::class);
         if($request->ajax()){
             
             return User::where('rol',2)->get();
@@ -32,6 +33,7 @@ class ClientController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',User::class);
         $client = new User();
         $all=User::orderBy('id', 'DESC')->get();
        // dd($all);
@@ -54,6 +56,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create',User::class);
         try{
         $user = new User();
         //$user->id=$user->id;
@@ -78,6 +81,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
+        $model = new User();
+        $model->id=$id;
+        $this->authorize('view',$model);
         // $client = Client::findorFail($id);
         $user = User::findorFail($id);
         $data = ['client'=>$user];
@@ -92,6 +98,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
+        $model = new User();
+        $model->id=$id;
+        $this->authorize('update',$model);
         $user = User::findorFail($id);
         $data = ['client'=>$user];
         return view('clients/createEdit',$data);
@@ -106,6 +115,9 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $model = new User();
+        $model->id=$id;
+        $this->authorize('update',$model);
        // return $id;
        try{
         $user = User::findorFail($id);
@@ -128,6 +140,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',User::class);
         try{
             $user = User::findorFail($id);
             $user->delete();

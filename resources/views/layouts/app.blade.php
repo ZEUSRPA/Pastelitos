@@ -98,10 +98,13 @@
         .card-img-top {
             border-radius: 0;
         }
+        body{
+             background-image: url(/storage/background.jpg);
+        }
     </style>
 </head>
 
-<body>
+<body >
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -123,12 +126,11 @@
                         <li class="nav-item"><a href="#works" class="nav-link">Portafolio</a></li>
                         <li class="nav-item"><a href="#experience" class="nav-link">Experiencia</a></li> 
                         <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>-->
-                        @guest
-                        @else
-                        <li class="nav-item"><a href="/admin/clientes/" class="nav-link">Administrar</a></li>
-                        @endguest
 
-                    </ul>
+                        <li class="nav-item"><a href="/administrar" class="nav-link">Administrar</a></li>
+                        <li class="nav-item"><a href="/catalogo/" class="nav-link">Catálogo</a></li> 
+                        
+ </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
