@@ -57,7 +57,8 @@ class CakeController extends Controller
     {
         if($request->edit!=null){
             //se llama el metodo desde aqui porque se tuvieron problemas al enviar la imagen mediante el metodo put.
-            update($request);
+            $this->update($request);
+            return;
         }
         $cake = new Cake();
         $cake->name = $request->name;
@@ -122,7 +123,12 @@ class CakeController extends Controller
             $cake->description = $request->description;
             $cake->price = $request->price;
             $cake->stock = $request->stock;
-            Storage:: delete ('public/'.$cake->image);
+            try{
+                Storage:: delete ('public/'.$cake->image);
+
+            }catch(exception $e){
+
+            }
             $path = $request->image->store('public');
             $ur = (string)$request->image->hashName();
             $cake->image=$ur;
@@ -130,7 +136,7 @@ class CakeController extends Controller
         try{
             $cake->save();
         }catch(\Illuminate\Database\QueryException $e){
-            dd($e);
+            
         }
         return $cake;
     }

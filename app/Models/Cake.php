@@ -18,4 +18,14 @@ class Cake extends Model
         'image',
         'stock'
     ];
+
+    public function getDescriptionAttribute($value)
+    {
+        return \ucfirst(\strtolower($value));
+    }
+
+    // public function setDescriptionAttribute($value)
+    // {
+    //     $this->attributes['name'] = \strtoupper($value);
+    // }
 }
