@@ -41,6 +41,8 @@ Vue.component('employees-create-edit', require('./components/Employees/CreateEdi
 Vue.component('coupons-index', require('./components/Coupons/IndexComponent.vue').default);
 Vue.component('coupons-details', require('./components/Coupons/DetailsComponent.vue').default);
 Vue.component('coupons-create-edit', require('./components/Coupons/CreateEditComponent.vue').default);
+Vue.component('catalog-component', require('./components/Catalog/index.vue').default);
+Vue.component('carousel-component', require('./components/Catalog/carousel.vue').default);
 
 Vue.component('sales-index', require('./components/Sales/IndexComponent.vue').default);
 Vue.component('sales-details', require('./components/Sales/DetailsComponent.vue').default);

@@ -15,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');;
 Route::get('/administrar', function () {
     return view('admin.panel');
 });
+Route::apiResource('/pasteles',App\Http\Controllers\CakeController::class);
+    
+Route::apiResource('/catalogo',App\Http\Controllers\CatalogController::class);
+    
 Auth::routes();
 
 Route::middleware(['auth','isAdmin'])->group(function(){
@@ -54,7 +58,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
         Route::apiResource('/devoluciones',App\Http\Controllers\DevolutionController::class);
     
         Route::get('/pedidos/detalle/',[App\Http\Controllers\OrderDetailController::class,'create'])->name('ordersDetail.create');
-    
+        
         Route::get('/pedidos/agregar/',[App\Http\Controllers\OrderController::class,'create'])->name('orders.create');
         Route::get('/pedidos/{id}',[App\Http\Controllers\OrderController::class,'show'])->name('orders.details');
         Route::get('/pedidos/editar/{id}',[App\Http\Controllers\OrderController::class,'edit'])->name('orders.edit');
