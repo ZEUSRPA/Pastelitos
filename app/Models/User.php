@@ -25,6 +25,16 @@ class User extends Authenticatable
         'phone'
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = \ucwords(\strtolower($value));
+    }
+
+    public function getEmailAttribute($value)
+    {
+        return \strtolower($value);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

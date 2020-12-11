@@ -20,4 +20,9 @@ class Employee extends Model
         'address',
         'workplace',
     ];
+
+    public function getWorkplaceAttribute($value)
+    {
+        return \ucfirst(strtolower($value));
+    }
 }

@@ -55,26 +55,41 @@ class CakeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=> 'required',
+            'description'=>'required',
+            'price'=>'required',
+            'image'=>'required|image',
+            'stock'=>'required',
+        ]);
+        
         if($request->edit!=null){
             //se llama el metodo desde aqui porque se tuvieron problemas al enviar la imagen mediante el metodo put.
             $this->update($request);
             return;
         }
-        $cake = new Cake();
-        $cake->name = $request->name;
-        $cake->price = $request->price;
-        $cake->description = $request->description;
-        $cake->stock = $request->stock;
-        if ($request->image != '') {
-            if ($request->hasFile('image')) {
+        $path = $request->image->store('public');
+        $request->image= (string)$request->image->hashName();
+        
+        $cake = Cake::create($request->all());
 
-                //Storage:: delete ('public/'.$usercdu -> pic);
-                $path = $request->image->store('public');
-                $ur = (string)$request->image->hashName();
-                $cake->image=$ur;
-            }
-        }
-        $cake->save();
+        
+
+        // $cake = new Cake();
+        // $cake->name = $request->name;
+        // $cake->price = $request->price;
+        // $cake->description = $request->description;
+        // $cake->stock = $request->stock;
+        // if ($request->image != '') {
+        //     if ($request->hasFile('image')) {
+
+        //         //Storage:: delete ('public/'.$usercdu -> pic);
+        //         $path = $request->image->store('public');
+        //         $ur = (string)$request->image->hashName();
+        //         $cake->image=$ur;
+        //     }
+        // }
+        // $cake->save();
         return $cake;
     }
 

@@ -24,8 +24,8 @@ class Cake extends Model
         return \ucfirst(\strtolower($value));
     }
 
-    // public function setDescriptionAttribute($value)
-    // {
-    //     $this->attributes['name'] = \strtoupper($value);
-    // }
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = \ucwords(\strtolower($value));
+    }
 }
