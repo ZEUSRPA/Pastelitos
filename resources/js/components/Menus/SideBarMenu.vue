@@ -12,7 +12,7 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/pasteles/"><i class="fas fa-swimmer"></i><span>Pasteles</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/cupones/"><i class="fas fa-calendar-alt"></i><span>Cupones</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/pedidos/"><i class="fas fa-th-large"></i><span>Pedidos</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/ventas/"><i class="fas fa-calendar-alt"></i><span>Ventas</span></a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="/admin/ventas/"><i class="fas fa-calendar-alt"></i><span>Ventas</span></a></li> -->
                 
                 <!-- <li class="nav-item"><a class="nav-link" href="/admin/devoluciones"><i class="fas fa-user-ninja"></i><span>Devoluciones</span></a></li> -->
             </ul>

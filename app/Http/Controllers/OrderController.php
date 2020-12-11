@@ -42,6 +42,9 @@ class OrderController extends Controller
     public function create()
     {
         $user = Employee::where('idUser',Auth::user()->id)->first();
+        if($user==null){
+            return redirect('/admin/pedidos/');
+        }
         $order = new Order();
         $order->id=\DB::getPdo()->lastInsertId()+1;
         $order->orderDate=Carbon::now()->toDateString();
@@ -88,7 +91,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        
+        return redirect('/admin/pedidos/');
         $order = Order::findorFail($id);
         $order->details->cakes;
         $order->employee->user;
