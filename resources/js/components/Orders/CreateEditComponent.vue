@@ -29,7 +29,7 @@
                             <h4>Folio: {{order.id}}</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 m-0">
-                            <h4>Fecha: {{orderDate}}</h4>
+                            <h4>Fecha: {{order.orderDate}}</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 m-0">
                             <h4>ID Empleado:{{order.idEmployee}}</h4>
@@ -258,7 +258,7 @@
                                 <input type="date" v-model="order.dueDate" placeholder="Seleccione una fecha" class="w-100 p-1 date"/>
                             </div>
                           </div>
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <!-- <div class="col-xs-12 col-md-6 col-lg-3 m-0">
                             <h4>ID Cupon</h4>
                             <div class="w-100">
                             <input
@@ -269,9 +269,9 @@
                             />
                             <button class="btn btn-info" @click="searchCoupon()">Aplicar</button>
                             </div>
-                          </div>
+                          </div> -->
                           
-                          <div class="col-xs-12 col-md-6 col-lg-3 m-0">
+                          <!-- <div class="col-xs-12 col-md-6 col-lg-3 m-0">
                             <h4>Cupon</h4>
                             <div class="w-100">
                             <input
@@ -282,7 +282,7 @@
                                 disabled
                             />
                             </div>
-                          </div >
+                          </div > -->
                           <div class="col-xs-12 col-md-6 col-lg-3 m-0">
                             <h4>Metodo de pago</h4>
                             <div class="w-100">
@@ -363,7 +363,6 @@ export default {
     console.log(this.order);
     if(this.order.idUser===-1){
       this.selectedView = "addView";
-      this.orderDate=new Date(); 
       this.order.idUser=0;
     }else{
       this.selectedView="updateView";
@@ -372,14 +371,14 @@ export default {
   },
   methods: {
     setParams() {
-      var params = new FormData();
-      params.append("orderDate",this.order.orderDate);
-      params.append("payMethod",this.order.payMethod);
-      params.append("dueDate",this.order.dueDate);
-      params.append("idEmployee",this.order.idEmployee);
-      params.append("idUser",this.order.idUser);
-      params.append("cakesinOrder",this.cakesInOrder);
-      return params;
+      var $params = new FormData();
+      $params.append("orderDate",this.order.orderDate);
+      $params.append("payMethod",this.order.payMethod);
+      $params.append("dueDate",this.order.dueDate);
+      $params.append("idEmployee",this.order.idEmployee);
+      $params.append("idUser",this.order.idUser);
+      $params.append("cakesinOrder",this.cakesInOrder);
+      return $params;
       
     },
     addProcedure() {
@@ -413,13 +412,22 @@ export default {
       }
       var params=this.setParams();
       axios.post("/admin/pedidos", params).then((res) => {
-        this.order=res.data;
-      });
-      for(var $y of this.cakesInOrder){
-        var par={cake:$y,order:this.order.id};
-        axios.post("/admin/pedidos/detalle", par).then((res) => {
+          console.log(res.data.id);
+          for(let i=0;i<this.cakesInOrder.length;i++){
+            var par=new FormData();
+            par.append("idCake",this.cakesInOrder[i].id);
+            par.append("price",this.cakesInOrder[i].price);
+            par.append("quantity",this.cakesInOrder[i].quantity);
+            par.append("idOrder",res.data.id);
+            axios.post("/admin/pedidos/detalle", par).then((res) => {
+            });
+          }
         });
-      }
+      this.showSuccessNotification("Pedido registrado","Se ha registrado el pedido con exito")
+      console.log(this.cakesInOrder);
+      this.showList();
+      
+      
       
     },
     searchClient(){
@@ -468,9 +476,9 @@ export default {
           this.cakesInOrder.push($co);
         }
         this.subTotal=0;
-        for(var x of this.cakesInOrder){
-          x.import=x.price*x.quantity;
-          this.subTotal+=x.import;
+        for(var $x of this.cakesInOrder){
+          $x.import=$x.price*$x.quantity;
+          this.subTotal+=$x.import;
         }
         this.iva=this.subTotal*.16;
         this.total=this.iva+this.subTotal;
@@ -483,9 +491,9 @@ export default {
     unSetProcedure(item){
         this.cakesInOrder.splice(this.cakesInOrder.findIndex(a=>a.id === item.id),1);
         this.subTotal=0;
-        for(var x of this.cakesInOrder){
-          x.import=x.price*x.quantity;
-          this.subTotal+=x.import;
+        for(var $x of this.cakesInOrder){
+          $x.import=$x.price*$x.quantity;
+          this.subTotal+=$x.import;
         }
         this.iva=this.subTotal*.16;
         this.total=this.iva+this.subTotal;
@@ -507,7 +515,7 @@ export default {
     updateProcedure() {
     },
     showList() {
-      window.location.href = "/admin/ventas/";
+      window.location.href = "/admin/pedidos/";
     },
     resetFields() {
       this.cake.name = "";

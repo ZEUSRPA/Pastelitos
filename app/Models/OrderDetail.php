@@ -10,7 +10,8 @@ class OrderDetail extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     public function cake(){
-        return belongsTo('\App\Models\Cake','idCake');
+        return $this->belongsTo('\App\Models\Cake','idCake');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\OrderDetail;
@@ -21,30 +21,18 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         if($request->ajax){
-            $orders = Order::with('details','employee')->get();
-            foreach($orders as $order){
-                foreach($orders->details as $detail){
-                    $detail->cake;
-                }
-                $order->employee->user;
-                $order->client;
-            }
+            $orders = Order::with('details.cake','employee.user','client')->get();
+            
             return $orders;
         }else{
-            return view('orders/index');
+            $orders = Order::with('details.cake','employee.user','client')->get();
+            
+            $data = ['orders'=>$orders];
+            return view('orders/index',$data);
         }
     }
 
-    public function getAll(Request $request){
-        if($request->ajax){
-            $orders = Order::with('details','employee')->first();
-            foreach($orders as $order){
-                $order->details->cakes;
-                $order->employee->user;
-            }
-            return $orders;
-        }
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -53,13 +41,13 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();;
+        $user = Employee::where('idUser',Auth::user()->id)->first();
         $order = new Order();
         $order->id=\DB::getPdo()->lastInsertId()+1;
-        $order->orderDate='';
+        $order->orderDate=Carbon::now()->toDateString();
         $order->payMethod=1;
         $order->dueDate='';
-        $order->idEmployee =1;
+        $order->idEmployee = $user->id;
         $order->employee;
         $order->employee->user;
         $order->idUser=-1;
@@ -86,8 +74,9 @@ class OrderController extends Controller
         $order->idUser = $request->idUser;
         $order->status = 1;
         $order->save();
-
-    
+        $all=Order::orderBy('id', 'DESC')->get();
+        // dd($all);
+        $order->id=sizeof($all)==0?1:$all[0]->id;
         return $order;
     }
 

@@ -14,7 +14,7 @@ class PruebasSeeder extends Seeder
     public function run()
     {
         $this->call(OrderSeeder::class);
-        $this->call(EmployeeSeeder::class);
+        $this->call(EmployeeSeederP::class);
         $this->call(OrderDetailSeeder::class);
         $this->call(SaleDetailSeeder::class);
     }

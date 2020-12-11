@@ -14,7 +14,7 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        Employee::factory()->times(5)->pastelero()->create();
+        Employee::create(['idUser'=>1,'rfc'=>'1234HFJNV4E32','address'=>'Puerto Lobo #45','workplace'=>'vendedor']);
     }
 
    

@@ -35,12 +35,11 @@ class OrderDetailController extends Controller
      */
     public function store(Request $request)
     {
-        
         $detail = new OrderDetail();
-        $detail->idOrder=$request->order;
-        $detail->idCake=$request->cake->id;
-        $detail->price=$request->cake->price;
-        $detail->quantity=$request->cake->quantity;
+        $detail->idOrder=$request->idOrder;
+        $detail->idCake=$request->idCake;
+        $detail->price=$request->price;
+        $detail->quantity=$request->quantity;
         $detail->save();
         
     }
