@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 
 class CakeController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +33,7 @@ class CakeController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',App\Http\Controllers\Cake::class);
         $cake = new Cake();
         $all=Cake::orderBy('id', 'DESC')->get();
         // dd($all);
@@ -58,23 +56,8 @@ class CakeController extends Controller
     public function store(Request $request)
     {
         if($request->edit!=null){
-            $cake = Cake::findorFail($request->edit);
-            if ($request->hasFile('image')){
-                $cake->name = $request->name;
-                $cake->description = $request->description;
-                $cake->price = $request->price;
-                $cake->stock = $request->stock;
-                Storage:: delete ('public/'.$cake->image);
-                $path = $request->image->store('public');
-                $ur = (string)$request->image->hashName();
-                $cake->image=$ur;
-            }
-            try{
-                $cake->save();
-            }catch(\Illuminate\Database\QueryException $e){
-                dd($e);
-            }
-            return $cake;
+            //se llama el metodo desde aqui porque se tuvieron problemas al enviar la imagen mediante el metodo put.
+            update($request);
         }
         $cake = new Cake();
         $cake->name = $request->name;
@@ -94,6 +77,7 @@ class CakeController extends Controller
         return $cake;
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -103,8 +87,9 @@ class CakeController extends Controller
     public function show($id)
     {
         $cake = Cake::findorFail($id);
-        $data = ['cake'=>$cake];
+        $data = ['cake'=> $cake];
         return view('cakes/details',$data);
+       
     }
 
     /**
@@ -115,9 +100,11 @@ class CakeController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('admin');
         $cake = Cake::findorFail($id);
         $data = ['cake'=> $cake];
         return view('cakes/createEdit',$data);
+       
     }
 
     /**
@@ -127,9 +114,25 @@ class CakeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        
+        $cake = Cake::findorFail($request->edit);
+        if ($request->hasFile('image')){
+            $cake->name = $request->name;
+            $cake->description = $request->description;
+            $cake->price = $request->price;
+            $cake->stock = $request->stock;
+            Storage:: delete ('public/'.$cake->image);
+            $path = $request->image->store('public');
+            $ur = (string)$request->image->hashName();
+            $cake->image=$ur;
+        }
+        try{
+            $cake->save();
+        }catch(\Illuminate\Database\QueryException $e){
+            dd($e);
+        }
+        return $cake;
     }
 
     /**

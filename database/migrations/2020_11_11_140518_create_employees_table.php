@@ -22,6 +22,7 @@ class CreateEmployeesTable extends Migration
                 $table->string('workplace');
                 $table->foreign('idUser')->references('id')->on('users');
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }

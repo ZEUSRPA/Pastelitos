@@ -14,13 +14,16 @@ class CreateSaleDetailsTable extends Migration
     public function up()
     {
         if(!Schema::hasTable('sale_details')){
-            Schema::create('sale__details', function (Blueprint $table) {
+            Schema::create('sale_details', function (Blueprint $table) {
                 $table->id();
+                $table->foreignId('idSale');
                 $table->foreignId('idCake');
                 $table->float('price');
                 $table->integer('quantity');
+                $table->foreign('idSale')->references('id')->on('sales');
                 $table->foreign('idCake')->references('id')->on('cakes');
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }
@@ -33,6 +36,6 @@ class CreateSaleDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sale__details');
+        Schema::dropIfExists('sale_details');
     }
 }

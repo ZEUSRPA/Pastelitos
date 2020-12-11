@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
                 $table->foreign('idEmployee')->references('id')->on('employees');
                 $table->foreign('idUser')->references('id')->on('users');
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }

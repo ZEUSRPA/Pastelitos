@@ -17,6 +17,7 @@ class CreateDevolutionsTable extends Migration
             Schema::create('devolutions', function (Blueprint $table) {
                 $table->id();
                 $table->timestamps();
+                
             });
             
         }

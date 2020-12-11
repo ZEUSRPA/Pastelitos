@@ -39,10 +39,9 @@
                         <li class="nav-item"><a href="#works" class="nav-link">Portafolio</a></li>
                         <li class="nav-item"><a href="#experience" class="nav-link">Experiencia</a></li> 
                         <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>-->
-                        @guest
-                        @else
+                        @can('admin')
                             <li class="nav-item"><a href="/admin/clientes/" class="nav-link">Administrar</a></li> 
-                        @endguest
+                        @endcan
                         
                     </ul>
 

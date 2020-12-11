@@ -25,6 +25,7 @@ class CreateSalesTable extends Migration
                 $table->foreign('idEmployee')->references('id')->on('employees');
                 $table->foreign('idCoupon')->references('id')->on('coupons');
                 $table->timestamps();
+                $table->softDeletes();
             });
             
         }
