@@ -20,8 +20,8 @@
                             <thead class="thead-dark">
                                 <tr class="text-center">
                                     <th @click="sortTable('id')">ID</th>
-                                    <th @click="sortTable('name')">CLIENTE</th>
-                                    <th @click="sortTable('price')">FECHA ENTREGA</th>
+                                    <th @click="sortTable('client')">CLIENTE</th>
+                                    <th @click="sortTable('date')">FECHA ENTREGA</th>
                                     <th>OPCIONES</th>
                                 </tr>
                             </thead>
@@ -31,9 +31,7 @@
                                     <td class="w-50">{{item.client.name}}</td>
                                     <td class="w-25">{{item.dueDate}}</td>
                                     <td class="m-0 p-0">
-                                        <div class="col-12 m-0">
-                                            <button class="btn btn-info m-1 col-xl-3 col-xs-12" @click="setDetailsView(item)"><i class="el-icon-view"></i></button>
-                                        </div>
+                                        
 
                                     </td>
                                 </tr>
@@ -102,11 +100,11 @@
                 }else{
                     this.selectedorders=[];
                     for(let l of this.allorders){
-                        if(l.user.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
+                        if(l.client.name.toLowerCase().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedorders.push(l);
                         }else if(l.id.toString().indexOf(this.search.toLowerCase().trim())>-1){
                             this.selectedorders.push(l);
-                        }else if(l.user.email.toString().indexOf(this.search.trim())>-1){
+                        }else if(l.dueDate.toString().indexOf(this.search.trim())>-1){
                             this.selectedorders.push(l);
                         }
                     }
@@ -190,14 +188,18 @@
                     }else{
                         this.selectedorders.sort(function(a,b){return a.id>b.id?-1:a.id<b.id});
                     }
-                }else if(value === 'name'){
+                }else if(value === 'client'){
                     if(this.order===1){
-                        this.selectedorders.sort(function(a,b){return a.name<b.name?-1:a.name>b.name});
+                        this.selectedorders.sort(function(a,b){return a.client.name<b.client.name?-1:a.client.name>b.client.name});
                     }else{
-                        this.selectedorders.sort(function(a,b){return a.name>b.name?-1:a.name<b.name});
+                        this.selectedorders.sort(function(a,b){return a.client.name>b.client.name?-1:a.client.name<b.client.name});
                     }
-                }else if(value === 'price'){
-                    this.selectedorders.sort(function(a,b){return a.price>b.price?-1:a.price<b.price});
+                }else if(value === 'date'){
+                    if(this.order===1){
+                        this.selectedorders.sort(function(a,b){return a.dueDate<b.dueDate?-1:a.dueDate>b.dueDate});
+                    }else{
+                        this.selectedorders.sort(function(a,b){return a.dueDate>b.dueDate?-1:a.dueDate<b.dueDate});
+                    }
                 }
                 this.updateTable(0);
             }
