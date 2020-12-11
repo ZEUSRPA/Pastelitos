@@ -7,6 +7,13 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Pastelitos
+El objetivo de este proyecto fue desarrollar un sistema web para una pasteleria, de tal manera que se pudiera mostrar el catalogo de los pasteles y llevar la administracion de la misma, como lo son el control de empleados y clientes, asi como el registro de pasteles y pedidos.
+
+## Integrantes
+- Zeus Pallares
+
+
 ## Clonar
 Una vez clonado el repositorio es necesario ejecutar los siguientes comandos:
 
@@ -14,9 +21,12 @@ Una vez clonado el repositorio es necesario ejecutar los siguientes comandos:
 - npm install
 - php artisan storage:link
 
-Asimismo se requiere crear la base de datos y realizar las migraciones mediante el comando:
+## Base de datos
+Para la base de datos sera necesario crear una base de datos con el nombre "pastelitos" y ejecutar las migraciones y los seeders para precargar los datos para esto se ejecutaran los siguientes comandos:
 
 - php artisan migrate
+- php artisan db:seed
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
